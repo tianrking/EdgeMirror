@@ -23,6 +23,11 @@ function htmlPage(request) {
         docker: getToolBaseUrl(request, "docker"),
         mirrors: getToolBaseUrl(request, "mirrors"),
         proxy: getToolBaseUrl(request, "proxy"),
+        npm: getToolBaseUrl(request, "npm"),
+        go: getToolBaseUrl(request, "go"),
+        maven: getToolBaseUrl(request, "maven"),
+        crates: getToolBaseUrl(request, "crates"),
+        downloads: getToolBaseUrl(request, "downloads"),
         help: getToolBaseUrl(request, "help"),
     };
     const dockerRegistryHost = getDockerRegistryHost(request);
@@ -51,6 +56,11 @@ function htmlPage(request) {
             --c-github: #2da44e;
             --c-docker: #0db7ed;
             --c-proxy: #d946ef;
+            --c-npm: #cb3837;
+            --c-go: #00add8;
+            --c-maven: #c71a36;
+            --c-crates: #dea584;
+            --c-downloads: #0f766e;
             --c-help: #0f172a;
         }
 
@@ -93,6 +103,16 @@ function htmlPage(request) {
             grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); 
             gap: 30px;
             width: 100%; max-width: 1200px; padding: 0 30px 100px; z-index: 1;
+        }
+
+        .section-label {
+            grid-column: 1 / -1;
+            display: flex; align-items: center; justify-content: space-between; gap: 16px;
+            color: #0f172a; font-size: 0.9rem; font-weight: 900; letter-spacing: 0;
+            text-transform: uppercase; margin: 8px 0 -8px;
+        }
+        .section-label span {
+            color: #475569; text-transform: none; font-size: 0.92rem; font-weight: 600;
         }
 
         /* --- Card (核心优化) --- */
@@ -257,6 +277,7 @@ function htmlPage(request) {
     </header>
 
     <div class="grid">
+        <div class="section-label">Stable accelerators <span>verified and recommended for daily use</span></div>
         
         <div class="card" onclick="openModal('pypi')" style="--color: var(--c-pypi)">
             <div class="card-header">
@@ -333,6 +354,73 @@ function htmlPage(request) {
             <div class="action-area" onclick="event.stopPropagation()">
                 <div class="cmd-preview">wget / curl -O ...</div>
                 <button class="action-btn" onclick="openModal('proxy')">View Details</button>
+            </div>
+        </div>
+
+        <div class="section-label">Test accelerators <span>new routes ready for validation and feedback</span></div>
+
+        <div class="card" onclick="window.location.href='${urls.npm}'" style="--color: var(--c-npm)">
+            <div class="card-header">
+                <div class="icon"><svg viewBox="0 0 24 24"><path d="M3 3h18v18H3V3m4 5v8h3v-5h2v5h5V8H7Z"/></svg></div>
+                <div class="arrow-icon">→</div>
+            </div>
+            <div class="title">npm Registry</div>
+            <div class="desc">Test route for npm, pnpm, and yarn registry metadata plus tarball downloads.</div>
+            <div class="action-area" onclick="event.stopPropagation()">
+                <div class="cmd-preview">npm --registry ${urls.npm}</div>
+                <button class="action-btn" onclick="window.location.href='${urls.npm}'">Open</button>
+            </div>
+        </div>
+
+        <div class="card" onclick="window.location.href='${urls.go}'" style="--color: var(--c-go)">
+            <div class="card-header">
+                <div class="icon"><svg viewBox="0 0 24 24"><path d="M4 9h8v2H4V9m-2 4h8v2H2v-2m4 4h8v2H6v-2m9.5-8A4.5 4.5 0 1 1 11 13.5 4.5 4.5 0 0 1 15.5 9m0 2A2.5 2.5 0 1 0 18 13.5 2.5 2.5 0 0 0 15.5 11Z"/></svg></div>
+                <div class="arrow-icon">→</div>
+            </div>
+            <div class="title">Go Modules</div>
+            <div class="desc">Test GOPROXY-compatible route for module metadata, mod files, and zip archives.</div>
+            <div class="action-area" onclick="event.stopPropagation()">
+                <div class="cmd-preview">go env -w GOPROXY=...</div>
+                <button class="action-btn" onclick="window.location.href='${urls.go}'">Open</button>
+            </div>
+        </div>
+
+        <div class="card" onclick="window.location.href='${urls.maven}'" style="--color: var(--c-maven)">
+            <div class="card-header">
+                <div class="icon"><svg viewBox="0 0 24 24"><path d="M4 4h16v4H4V4m0 6h16v4H4v-4m0 6h16v4H4v-4Z"/></svg></div>
+                <div class="arrow-icon">→</div>
+            </div>
+            <div class="title">Maven / Gradle</div>
+            <div class="desc">Test route for Maven Central, Google Maven, Gradle Plugin Portal, and JitPack.</div>
+            <div class="action-area" onclick="event.stopPropagation()">
+                <div class="cmd-preview">maven { url = uri(...) }</div>
+                <button class="action-btn" onclick="window.location.href='${urls.maven}'">Open</button>
+            </div>
+        </div>
+
+        <div class="card" onclick="window.location.href='${urls.crates}'" style="--color: var(--c-crates)">
+            <div class="card-header">
+                <div class="icon"><svg viewBox="0 0 24 24"><path d="M12 2 2 7v10l10 5 10-5V7L12 2m0 2.2L18.7 7 12 9.8 5.3 7 12 4.2M4 8.6l7 2.9v7.7l-7-3.5V8.6m16 0v7.1l-7 3.5v-7.7l7-2.9Z"/></svg></div>
+                <div class="arrow-icon">→</div>
+            </div>
+            <div class="title">crates.io Sparse</div>
+            <div class="desc">Test route for Cargo sparse index and crate package downloads.</div>
+            <div class="action-area" onclick="event.stopPropagation()">
+                <div class="cmd-preview">sparse+${urls.crates}/</div>
+                <button class="action-btn" onclick="window.location.href='${urls.crates}'">Open</button>
+            </div>
+        </div>
+
+        <div class="card" onclick="window.location.href='${urls.downloads}'" style="--color: var(--c-downloads)">
+            <div class="card-header">
+                <div class="icon"><svg viewBox="0 0 24 24"><path d="M5 20h14v-2H5v2M19 9h-4V3H9v6H5l7 7 7-7Z"/></svg></div>
+                <div class="arrow-icon">→</div>
+            </div>
+            <div class="title">Downloads</div>
+            <div class="desc">Test route for runtimes, Open VSX, SourceForge, GitLab, Gitea, and direct file URLs.</div>
+            <div class="action-area" onclick="event.stopPropagation()">
+                <div class="cmd-preview">${urls.downloads}/node/...</div>
+                <button class="action-btn" onclick="window.location.href='${urls.downloads}'">Open</button>
             </div>
         </div>
 

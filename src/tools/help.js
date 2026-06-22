@@ -205,12 +205,17 @@ function htmlPage(request) {
       <table class="route-table">
         <thead><tr><th>资源</th><th>入口</th><th>说明</th></tr></thead>
         <tbody>
-          <tr><td>PyPI / PyTorch</td><td><a href="${urls.pypi}">${urls.pypi}</a></td><td>Python 包、PyPI simple index、PyTorch wheel。</td></tr>
-          <tr><td>Hugging Face</td><td><a href="${urls.hf}">${urls.hf}</a></td><td>模型、数据集、LFS 大文件下载。</td></tr>
-          <tr><td>GitHub</td><td><a href="${urls.github}">${urls.github}</a></td><td>Git clone、Raw、Release 文件。</td></tr>
-          <tr><td>Docker</td><td><a href="${urls.docker}">${urls.docker}</a></td><td>网页生成镜像命令；Registry API 使用当前域名的 /v2。</td></tr>
-          <tr><td>Linux Mirrors</td><td><a href="${urls.mirrors}">${urls.mirrors}</a></td><td>APT、YUM、DNF、Pacman、wget、curl。</td></tr>
-          <tr><td>Universal Proxy</td><td><a href="${urls.proxy}">${urls.proxy}</a></td><td>任意 HTTP/HTTPS 文件下载代理。</td></tr>
+          <tr><td><span class="pill green">Stable</span><br>PyPI / PyTorch</td><td><a href="${urls.pypi}">${urls.pypi}</a></td><td>Python 包、PyPI simple index、PyTorch wheel。</td></tr>
+          <tr><td><span class="pill green">Stable</span><br>Hugging Face</td><td><a href="${urls.hf}">${urls.hf}</a></td><td>模型、数据集、LFS 大文件下载。</td></tr>
+          <tr><td><span class="pill green">Stable</span><br>GitHub</td><td><a href="${urls.github}">${urls.github}</a></td><td>Git clone、Raw、Release 文件。</td></tr>
+          <tr><td><span class="pill green">Stable</span><br>Docker</td><td><a href="${urls.docker}">${urls.docker}</a></td><td>网页生成镜像命令；Registry API 使用当前域名的 /v2。</td></tr>
+          <tr><td><span class="pill green">Stable</span><br>Linux Mirrors</td><td><a href="${urls.mirrors}">${urls.mirrors}</a></td><td>APT、YUM、DNF、Pacman、wget、curl。</td></tr>
+          <tr><td><span class="pill green">Stable</span><br>Universal Proxy</td><td><a href="${urls.proxy}">${urls.proxy}</a></td><td>任意 HTTP/HTTPS 文件下载代理。</td></tr>
+          <tr><td><span class="pill orange">Test</span><br>npm Registry</td><td><a href="${urls.npm}">${urls.npm}</a></td><td>npm、pnpm、yarn metadata 和 tarball 下载。</td></tr>
+          <tr><td><span class="pill orange">Test</span><br>Go Modules</td><td><a href="${urls.go}">${urls.go}</a></td><td>GOPROXY module metadata、mod 和 zip 文件。</td></tr>
+          <tr><td><span class="pill orange">Test</span><br>Maven / Gradle</td><td><a href="${urls.maven}">${urls.maven}</a></td><td>Maven Central、Google Maven、Gradle Plugin Portal、JitPack。</td></tr>
+          <tr><td><span class="pill orange">Test</span><br>crates.io Sparse</td><td><a href="${urls.crates}">${urls.crates}</a></td><td>Cargo sparse index 和 crate package 下载。</td></tr>
+          <tr><td><span class="pill orange">Test</span><br>Downloads</td><td><a href="${urls.downloads}">${urls.downloads}</a></td><td>Runtime、Open VSX、SourceForge、GitLab/Gitea 和直接 URL 文件。</td></tr>
         </tbody>
       </table>
     </section>
@@ -229,6 +234,11 @@ function htmlPage(request) {
         ${commandBlock("Docker daemon.json", "{\n  \"registry-mirrors\": [\n    \"https://" + dockerHost + "\"\n  ]\n}")}
         ${commandBlock("APT source", "deb " + urls.mirrors + "/http://archive.ubuntu.com/ubuntu/ jammy main restricted universe multiverse")}
         ${commandBlock("Universal file proxy", "curl -L -O \"" + proxyDownloadBase + "/https://example.com/file.zip\"")}
+        ${commandBlock("npm", "npm install lodash --registry=" + urls.npm + "/")}
+        ${commandBlock("Go modules", "go env -w GOPROXY=" + urls.go + ",direct")}
+        ${commandBlock("Maven / Gradle", "maven { url = uri(\"" + urls.maven + "/maven-central\") }")}
+        ${commandBlock("crates.io", "[source.crates-io]\nreplace-with = \"devbox\"\n\n[source.devbox]\nregistry = \"sparse+" + urls.crates + "/\"")}
+        ${commandBlock("Runtime downloads", "curl -L -O \"" + urls.downloads + "/node/v22.11.0/node-v22.11.0-x64.msi\"")}
       </div>
     </section>
 
