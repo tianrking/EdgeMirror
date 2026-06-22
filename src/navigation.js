@@ -46,7 +46,7 @@ export function renderToolNav(request, activeKey) {
     return `<a href="${href}"${active}>${NAV_LABELS[item.key] ?? item.title}</a>`;
   });
 
-  return `${renderSharedHeaderStyles()}<header class="devbox-header"><nav class="nav" aria-label="Tool navigation">${links.join("")}</nav></header>`;
+  return `${renderSharedHeaderStyles()}<div class="devbox-header"><nav class="nav" aria-label="Tool navigation">${links.join("")}</nav></div>`;
 }
 
 function renderSharedHeaderStyles() {
@@ -63,9 +63,13 @@ function renderSharedHeaderStyles() {
       display: flex !important;
       align-items: center !important;
       justify-content: flex-end !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      min-height: 0 !important;
       background: transparent !important;
       border: 0 !important;
       box-shadow: none !important;
+      animation: none !important;
       pointer-events: none !important;
     }
     .devbox-header .nav {

@@ -273,8 +273,9 @@ function htmlPage(request) {
     .language-switch {
       display: flex;
       gap: 8px;
-      justify-content: flex-end;
-      margin-bottom: 24px;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+      margin-top: 22px;
     }
     .language-switch a {
       color: var(--muted);
@@ -395,12 +396,12 @@ function htmlPage(request) {
 <body>
   ${nav}
   <main>
-    ${languageSwitch}
     <section class="hero">
       <div class="hero-copy">
         <span class="eyebrow">${escapeHtml(copy.eyebrow)}</span>
         <h1>${escapeHtml(copy.title)}</h1>
         <p class="lead">${escapeHtml(copy.lead)}</p>
+        ${languageSwitch}
       </div>
       <div class="hero-panel">
         <div class="metric"><span>${escapeHtml(copy.primaryDomain)}</span><strong>${escapeHtml(urls.box)}</strong></div>
