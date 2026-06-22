@@ -73,7 +73,8 @@ function renderPage(request, baseUrl) {
       ${commandCard("Go", `${baseUrl}/golang/go1.23.3.windows-amd64.msi`)}
       ${commandCard("Rustup", `${baseUrl}/rustup/dist/x86_64-pc-windows-msvc/rustup-init.exe`)}
       ${commandCard("Open VSX", `${baseUrl}/openvsx/api/redhat/java/latest/file/redhat.java.vsix`)}
-      ${commandCard("Direct URL", `${baseUrl}/https://example.com/file.zip`)}
+      ${commandCard("Direct URL", `${baseUrl}/https://nodejs.org/dist/v22.11.0/node-v22.11.0-x64.msi`)}
+      ${commandCard("Example mapping", `Original:\nhttps://nodejs.org/dist/v22.11.0/node-v22.11.0-x64.msi\n\nAccelerated:\n${baseUrl}/https://nodejs.org/dist/v22.11.0/node-v22.11.0-x64.msi`)}
     </section>
     <p class="note">状态：Test。适合二进制安装包和 release asset 下载；带登录态或反盗链的上游仍需要按原站规则处理。</p>
   </main>

@@ -57,6 +57,7 @@ function renderPage(request, baseUrl) {
       ${commandCard("Gradle Kotlin DSL", `repositories {\n    maven { url = uri("${baseUrl}/maven-central") }\n    maven { url = uri("${baseUrl}/google") }\n    maven { url = uri("${baseUrl}/gradle-plugin") }\n}`)}
       ${commandCard("Gradle Groovy DSL", `repositories {\n    maven { url "${baseUrl}/maven-central" }\n    maven { url "${baseUrl}/google" }\n    maven { url "${baseUrl}/gradle-plugin" }\n}`)}
       ${commandCard("Maven Central path", `${baseUrl}/maven-central/com/google/guava/guava/maven-metadata.xml`)}
+      ${commandCard("Example mapping", `Original:\nhttps://repo1.maven.org/maven2/com/google/guava/guava/maven-metadata.xml\n\nAccelerated:\n${baseUrl}/maven-central/com/google/guava/guava/maven-metadata.xml`)}
     </section>
     <p class="note">状态：Test。下载和 metadata 代理已可用；Gradle plugin marker 与私有仓库认证建议先做项目级验证。</p>
   </main>

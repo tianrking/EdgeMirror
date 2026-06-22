@@ -157,6 +157,11 @@ function htmlPage(request) {
         .copy-btn:hover { background: var(--accent); color: #fff; }
         .download-btn { display: block; width: 100%; text-align: center; padding: 12px; background: var(--accent); color: #fff; border-radius: 8px; font-weight: 600; text-decoration: none; transition: all 0.2s; box-shadow: 0 4px 10px rgba(217, 70, 239, 0.3); border: none; font-size: 14px; margin-top: 15px; }
         .download-btn:hover { background: var(--accent-hover); transform: translateY(-1px); }
+        .example-pair { margin-top: 16px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; text-align: left; background: rgba(255,255,255,0.72); }
+        .example-row { display: grid; grid-template-columns: 104px minmax(0,1fr); gap: 10px; padding: 10px 12px; border-top: 1px solid var(--border); align-items: center; }
+        .example-row:first-child { border-top: 0; }
+        .example-row span { color: var(--text-muted); font-size: 12px; font-weight: 800; text-transform: uppercase; }
+        .example-row code { color: var(--text-main); font-size: 12px; word-break: break-all; }
         .tips { margin-top: 30px; color: var(--text-muted); font-size: 13px; line-height: 1.6; text-align: center; }
         .badge { background: #fce7f3; color: #be185d; padding: 2px 6px; border-radius: 4px; font-size: 11px; font-weight: 700; margin-right: 5px; border: 1px solid #fbcfe8; }
         .footer { margin-top: 40px; text-align: center; font-size: 12px; color: var(--text-muted); position: relative; z-index: 1; }
@@ -181,8 +186,12 @@ function htmlPage(request) {
 
         <div class="card-main">
             <div class="input-group">
-                <input type="text" id="urlInput" placeholder="Paste file URL (e.g. https://example.com/file.pdf)" autocomplete="off">
+                <input type="text" id="urlInput" placeholder="Paste file URL (e.g. https://nodejs.org/dist/v22.11.0/node-v22.11.0-x64.msi)" autocomplete="off">
             </div>
+        </div>
+        <div class="example-pair">
+            <div class="example-row"><span>Original</span><code>https://nodejs.org/dist/v22.11.0/node-v22.11.0-x64.msi</code></div>
+            <div class="example-row"><span>Accelerated</span><code>${downloadBaseUrl}/https://nodejs.org/dist/v22.11.0/node-v22.11.0-x64.msi</code></div>
         </div>
 
         <div class="result-area" id="resultArea">

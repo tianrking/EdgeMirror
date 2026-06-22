@@ -46,6 +46,7 @@ function renderPage(request, baseUrl) {
       ${commandCard("临时使用", `GOPROXY=${baseUrl},direct go install golang.org/x/tools/cmd/stringer@latest`)}
       ${commandCard("长期配置", `go env -w GOPROXY=${baseUrl},direct`)}
       ${commandCard("恢复默认", "go env -w GOPROXY=https://proxy.golang.org,direct")}
+      ${commandCard("Example mapping", `Original:\nGOPROXY=https://proxy.golang.org,direct go install golang.org/x/tools/cmd/stringer@latest\n\nAccelerated:\nGOPROXY=${baseUrl},direct go install golang.org/x/tools/cmd/stringer@latest`)}
     </section>
     <p class="note">状态：Test。模块代理路径已可用；sumdb 仍建议使用 Go 默认设置或你自己的可信配置。</p>
   </main>

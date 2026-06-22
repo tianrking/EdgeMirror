@@ -73,6 +73,7 @@ function renderPage(request, baseUrl) {
       ${commandCard(".cargo/config.toml", `[source.crates-io]\nreplace-with = "devbox"\n\n[source.devbox]\nregistry = "sparse+${baseUrl}/"`)}
       ${commandCard("单次环境变量", `CARGO_REGISTRIES_CRATES_IO_PROTOCOL=sparse cargo fetch`)}
       ${commandCard("测试 index", `${baseUrl}/config.json`)}
+      ${commandCard("Example mapping", `Original:\nsparse+https://index.crates.io/\nserde = "1"\n\nAccelerated:\nsparse+${baseUrl}/\nserde = "1"`)}
     </section>
     <p class="note">状态：Test。Sparse index 与 crate download 已代理；publish、yank、token API 不在当前稳定范围。</p>
   </main>

@@ -176,7 +176,7 @@ huggingface-cli download gpt2
 通过 GitHub 代理克隆仓库：
 
 ```bash
-git clone https://box.w0x7ce.eu/github/tianrking/box-tools.git
+git clone https://box.w0x7ce.eu/github/vercel/next.js.git
 ```
 
 拉取 Docker 镜像：
@@ -188,7 +188,7 @@ docker pull box.w0x7ce.eu/library/nginx:latest
 代理任意文件：
 
 ```bash
-curl -L -O "https://box.w0x7ce.eu/proxy/https://example.com/file.zip"
+curl -L -O "https://box.w0x7ce.eu/proxy/https://nodejs.org/dist/v22.11.0/node-v22.11.0-x64.msi"
 ```
 
 使用新增的 Test npm registry 路由：
@@ -228,7 +228,7 @@ registry = "sparse+https://box.w0x7ce.eu/crates/"
 
 ```bash
 curl -L -O "https://box.w0x7ce.eu/downloads/node/v22.11.0/node-v22.11.0-x64.msi"
-curl -L -O "https://box.w0x7ce.eu/downloads/https://example.com/file.zip"
+curl -L -O "https://box.w0x7ce.eu/downloads/https://nodejs.org/dist/v22.11.0/node-v22.11.0-x64.msi"
 ```
 
 ## 项目结构

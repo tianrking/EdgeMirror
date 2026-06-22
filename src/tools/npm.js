@@ -58,6 +58,7 @@ function renderPage(request, baseUrl) {
       ${commandCard("pnpm", pnpmCommand)}
       ${commandCard("yarn", yarnCommand)}
       ${commandCard(".npmrc", `registry=${baseUrl}/`)}
+      ${commandCard("Example mapping", `Original:\nnpm install lodash --registry=https://registry.npmjs.org/\n\nAccelerated:\nnpm install lodash --registry=${baseUrl}/`)}
     </section>
     <p class="note">状态：Test。已支持 registry metadata rewrite 和 tarball 下载；企业私有 npm token、publish 流程建议先在测试环境验证。</p>
   </main>

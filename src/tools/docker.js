@@ -282,6 +282,11 @@ function htmlPage(request) {
         
         .cmd-label { font-size: 12px; color: #8b949e; margin-bottom: 6px; display: block; }
         .cmd-text { font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace; color: var(--cmd-text); font-size: 14px; word-break: break-all; line-height: 1.5; padding-right: 60px; }
+        .example-pair { margin-top: 16px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; text-align: left; background: rgba(255,255,255,0.72); }
+        .example-row { display: grid; grid-template-columns: 96px minmax(0,1fr); gap: 10px; padding: 10px 12px; border-top: 1px solid var(--border); align-items: center; }
+        .example-row:first-child { border-top: 0; }
+        .example-row span { color: var(--text-muted); font-size: 12px; font-weight: 700; text-transform: uppercase; }
+        .example-row code { color: var(--text-main); font-size: 12px; word-break: break-all; }
         
         .copy-btn { 
             position: absolute; top: 50%; right: 12px; transform: translateY(-50%); 
@@ -327,6 +332,11 @@ function htmlPage(request) {
             <span class="cmd-label">Terminal Command:</span>
             <div class="cmd-text" id="cmdText"></div>
             <button class="copy-btn" onclick="copyCmd()">复制</button>
+        </div>
+        <div class="example-pair">
+            <div class="example-row"><span>Original</span><code>docker pull nginx:latest</code></div>
+            <div class="example-row"><span>Accelerated</span><code>docker pull ${registryHost}/library/nginx:latest</code></div>
+            <div class="example-row"><span>Quay</span><code>docker pull ${registryHost}/quay/coreos/etcd:latest</code></div>
         </div>
 
         <div class="tips">

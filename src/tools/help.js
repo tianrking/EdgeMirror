@@ -444,12 +444,12 @@ function htmlPage(request) {
       <div class="commands">
         ${commandBlock("PyPI", "pip install numpy -i " + urls.pypi + "/simple/", copy)}
         ${commandBlock("PyTorch", "pip install torch torchvision --index-url " + urls.pypi + "/pytorch/cu118", copy)}
-        ${commandBlock("Hugging Face", "export HF_ENDPOINT=" + urls.hf + "\nhuggingface-cli download gpt2", copy)}
-        ${commandBlock("GitHub", "git clone " + urls.github + "/tianrking/box-tools.git", copy)}
+        ${commandBlock("Hugging Face", "export HF_ENDPOINT=" + urls.hf + "\nhuggingface-cli download sentence-transformers/all-MiniLM-L6-v2", copy)}
+        ${commandBlock("GitHub", "git clone " + urls.github + "/vercel/next.js.git", copy)}
         ${commandBlock("Docker", "docker pull " + dockerHost + "/library/nginx:latest", copy)}
         ${commandBlock("Docker daemon.json", "{\n  \"registry-mirrors\": [\n    \"https://" + dockerHost + "\"\n  ]\n}", copy)}
         ${commandBlock("APT source", "deb " + urls.mirrors + "/http://archive.ubuntu.com/ubuntu/ jammy main restricted universe multiverse", copy)}
-        ${commandBlock("Universal Proxy", "curl -L -O \"" + proxyDownloadBase + "/https://example.com/file.zip\"", copy)}
+        ${commandBlock("Universal Proxy", "curl -L -O \"" + proxyDownloadBase + "/https://nodejs.org/dist/v22.11.0/node-v22.11.0-x64.msi\"", copy)}
         ${commandBlock("npm", "npm install lodash --registry=" + urls.npm + "/", copy)}
         ${commandBlock("Go Modules", "go env -w GOPROXY=" + urls.go + ",direct", copy)}
         ${commandBlock("Maven / Gradle", "maven { url = uri(\"" + urls.maven + "/maven-central\") }", copy)}

@@ -206,6 +206,11 @@ function htmlPage(request) {
         }
         .endpoint-panel span { display: block; color: #facc15; font-size: 12px; font-weight: 800; margin-bottom: 6px; }
         .endpoint-panel code { color: #e5e7eb; font-family: 'SFMono-Regular', Consolas, monospace; word-break: break-all; }
+        .example-pair { margin: 16px 0 18px; border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; overflow: hidden; text-align: left; background: rgba(255,255,255,0.06); }
+        .example-row { display: grid; grid-template-columns: 104px minmax(0,1fr); gap: 10px; padding: 10px 12px; border-top: 1px solid rgba(255,255,255,0.12); align-items: center; }
+        .example-row:first-child { border-top: 0; }
+        .example-row span { color: #9ca3af; font-size: 12px; font-weight: 800; text-transform: uppercase; }
+        .example-row code { color: #f8fafc; font-size: 12px; word-break: break-all; }
 
         h1 { margin-bottom: 30px; font-weight: 300; font-size: 28px; }
         h1 b { color: #000; font-weight: 700; position: relative; }
@@ -263,11 +268,15 @@ function htmlPage(request) {
             <span>HF_ENDPOINT</span>
             <code>${baseUrl}</code>
         </div>
-        <input type="text" id="modelInput" placeholder="e.g. meta-llama/Llama-2-7b-hf" autocomplete="off" spellcheck="false">
+        <input type="text" id="modelInput" placeholder="e.g. sentence-transformers/all-MiniLM-L6-v2" autocomplete="off" spellcheck="false">
         
         <div class="cmd" id="cmdBox">
             <div id="cmdText"></div>
             <button class="copy-btn" onclick="copy()">Copy</button>
+        </div>
+        <div class="example-pair">
+            <div class="example-row"><span>Original</span><code>huggingface-cli download sentence-transformers/all-MiniLM-L6-v2</code></div>
+            <div class="example-row"><span>Accelerated</span><code>HF_ENDPOINT=${baseUrl} huggingface-cli download sentence-transformers/all-MiniLM-L6-v2</code></div>
         </div>
 
         <div class="tips">

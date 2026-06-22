@@ -242,6 +242,11 @@ function htmlPage(request) {
         .result-box.show { display: block; animation: slideDown 0.3s ease-out; }
         .cmd-label { font-size: 12px; color: #8b949e; margin-bottom: 6px; display: block; }
         .cmd-text { font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace; color: var(--cmd-text); font-size: 14px; word-break: break-all; line-height: 1.5; padding-right: 60px; }
+        .example-pair { margin-top: 16px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; text-align: left; background: rgba(255,255,255,0.72); }
+        .example-row { display: grid; grid-template-columns: 104px minmax(0,1fr); gap: 10px; padding: 10px 12px; border-top: 1px solid var(--border); align-items: center; }
+        .example-row:first-child { border-top: 0; }
+        .example-row span { color: var(--text-muted); font-size: 12px; font-weight: 700; text-transform: uppercase; }
+        .example-row code { color: var(--text-main); font-size: 12px; word-break: break-all; }
         .copy-btn { position: absolute; top: 50%; right: 12px; transform: translateY(-50%); background-color: var(--btn-bg); color: #fff; border: 1px solid rgba(0,0,0,0.1); border-radius: 6px; padding: 6px 12px; cursor: pointer; font-size: 13px; font-weight: 600; transition: all 0.2s; box-shadow: 0 1px 0 rgba(0,0,0,0.1); }
         .copy-btn:hover { background-color: var(--btn-hover); box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
         .copy-btn:active { transform: translateY(-50%) scale(0.96); }
@@ -274,6 +279,11 @@ function htmlPage(request) {
             <span class="cmd-label">Terminal Command:</span>
             <div class="cmd-text" id="cmdText"></div>
             <button class="copy-btn" onclick="copyCmd()">复制</button>
+        </div>
+        <div class="example-pair">
+            <div class="example-row"><span>Original</span><code>pip install numpy -i https://pypi.org/simple/</code></div>
+            <div class="example-row"><span>Accelerated</span><code>pip install numpy -i ${baseUrl}/simple/</code></div>
+            <div class="example-row"><span>PyTorch</span><code>pip install torch torchvision --index-url ${baseUrl}/pytorch/cu118</code></div>
         </div>
         <div class="tips">
             <p><span class="badge-blue">STANDARD</span> <code>/simple/</code> 加速标准 PyPI 包</p>

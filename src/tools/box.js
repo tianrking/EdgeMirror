@@ -483,7 +483,7 @@ function htmlPage(request) {
                 icon: '<path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8Z"/><path d="M15 9h-1a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2Zm-6 0H8a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2Zm3 4a3 3 0 0 0-3 3 .5.5 0 0 0 .5.5h5a.5.5 0 0 0 .5-.5 3 3 0 0 0-3-3Z"/>',
                 content: [
                     \`<div class="instruction">Hugging Face CLI</div>
-                    <div class="code-wrap"><span class="comment"># 设置环境变量并下载</span><br><div class="code-pre">export HF_ENDPOINT=${urls.hf}<br><span class="cmd">huggingface-cli</span> download <span class="arg">meta-llama/Llama-2-7b-hf</span></div><button class="modal-copy-btn" onclick="copyText(this)">Copy</button></div>
+                    <div class="code-wrap"><span class="comment"># 原始: huggingface-cli download sentence-transformers/all-MiniLM-L6-v2</span><br><div class="code-pre">export HF_ENDPOINT=${urls.hf}<br><span class="cmd">huggingface-cli</span> download <span class="arg">sentence-transformers/all-MiniLM-L6-v2</span></div><button class="modal-copy-btn" onclick="copyText(this)">Copy</button></div>
                     <a href="${urls.hf}" target="_blank" style="color:var(--c-hf)">Go to Website →</a>\`,
                     
                     \`<div class="instruction">Python Code</div>
@@ -500,11 +500,11 @@ function htmlPage(request) {
                 icon: '<path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02a9.56 9.56 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z"/>',
                 content: [
                     \`<div class="instruction">Clone Repository</div>
-                    <div class="code-wrap"><div class="code-pre"><span class="cmd">git</span> clone ${urls.github}/<span class="arg">username/repo</span></div><button class="modal-copy-btn" onclick="copyText(this)">Copy</button></div>
+                    <div class="code-wrap"><span class="comment"># 原始: git clone https://github.com/vercel/next.js.git</span><br><div class="code-pre"><span class="cmd">git</span> clone ${urls.github}/<span class="arg">vercel/next.js.git</span></div><button class="modal-copy-btn" onclick="copyText(this)">Copy</button></div>
                     <a href="${urls.github}" target="_blank" style="color:var(--c-github)">Go to Website →</a>\`,
                     
                     \`<div class="instruction">Download Release / Raw</div>
-                    <div class="code-wrap"><div class="code-pre"><span class="cmd">wget</span> ${urls.github}/https://github.com/.../file.zip</div><button class="modal-copy-btn" onclick="copyText(this)">Copy</button></div>\`
+                    <div class="code-wrap"><span class="comment"># 原始: https://github.com/vercel/next.js/archive/refs/heads/canary.zip</span><br><div class="code-pre"><span class="cmd">wget</span> ${urls.github}/https://github.com/vercel/next.js/archive/refs/heads/canary.zip</div><button class="modal-copy-btn" onclick="copyText(this)">Copy</button></div>\`
                 ]
             },
             docker: {
@@ -543,11 +543,11 @@ function htmlPage(request) {
                 icon: '<path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/>',
                 content: [
                     \`<div class="instruction">Wget Download</div>
-                    <div class="code-wrap"><div class="code-pre"><span class="cmd">wget</span> "${proxyDownloadBaseUrl}/https://example.com/file.zip"</div><button class="modal-copy-btn" onclick="copyText(this)">Copy</button></div>
+                    <div class="code-wrap"><span class="comment"># 原始: https://nodejs.org/dist/v22.11.0/node-v22.11.0-x64.msi</span><br><div class="code-pre"><span class="cmd">wget</span> "${proxyDownloadBaseUrl}/https://nodejs.org/dist/v22.11.0/node-v22.11.0-x64.msi"</div><button class="modal-copy-btn" onclick="copyText(this)">Copy</button></div>
                     <a href="${urls.proxy}" target="_blank" style="color:var(--c-proxy)">Go to Website →</a>\`,
                     
                     \`<div class="instruction">Curl Download</div>
-                    <div class="code-wrap"><div class="code-pre"><span class="cmd">curl</span> -L -O "${proxyDownloadBaseUrl}/https://example.com/file.zip"</div><button class="modal-copy-btn" onclick="copyText(this)">Copy</button></div>\`
+                    <div class="code-wrap"><span class="comment"># 原始: https://nodejs.org/dist/v22.11.0/node-v22.11.0-x64.msi</span><br><div class="code-pre"><span class="cmd">curl</span> -L -O "${proxyDownloadBaseUrl}/https://nodejs.org/dist/v22.11.0/node-v22.11.0-x64.msi"</div><button class="modal-copy-btn" onclick="copyText(this)">Copy</button></div>\`
                 ]
             }
         };

@@ -186,6 +186,11 @@ function htmlPage(request) {
         }
         input:focus { border-color: var(--accent); background: #fff; box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15); }
         input::placeholder { color: #94a3b8; }
+        .example-pair { margin: -12px 0 24px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; text-align: left; background: #fff; }
+        .example-row { display: grid; grid-template-columns: 104px minmax(0,1fr); gap: 10px; padding: 10px 12px; border-top: 1px solid var(--border); align-items: center; }
+        .example-row:first-child { border-top: 0; }
+        .example-row span { color: var(--text-muted); font-size: 12px; font-weight: 800; text-transform: uppercase; }
+        .example-row code { color: var(--text-main); font-size: 12px; word-break: break-all; }
         
         .result-area {
             opacity: 0; transform: translateY(10px); transition: all 0.3s ease;
@@ -250,6 +255,10 @@ function htmlPage(request) {
             
             <div class="input-group">
                 <input type="text" id="target" placeholder="粘贴源地址 (如 http://archive.ubuntu.com/ubuntu)" autocomplete="off">
+            </div>
+            <div class="example-pair">
+                <div class="example-row"><span>Original</span><code>deb http://archive.ubuntu.com/ubuntu jammy main restricted universe multiverse</code></div>
+                <div class="example-row"><span>Accelerated</span><code>deb ${baseUrl}/http://archive.ubuntu.com/ubuntu jammy main restricted universe multiverse</code></div>
             </div>
 
             <div class="result-area" id="resultArea">

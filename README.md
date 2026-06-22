@@ -176,7 +176,7 @@ huggingface-cli download gpt2
 Clone through the GitHub proxy:
 
 ```bash
-git clone https://box.w0x7ce.eu/github/tianrking/box-tools.git
+git clone https://box.w0x7ce.eu/github/vercel/next.js.git
 ```
 
 Pull a Docker image:
@@ -188,7 +188,7 @@ docker pull box.w0x7ce.eu/library/nginx:latest
 Proxy a generic file:
 
 ```bash
-curl -L -O "https://box.w0x7ce.eu/proxy/https://example.com/file.zip"
+curl -L -O "https://box.w0x7ce.eu/proxy/https://nodejs.org/dist/v22.11.0/node-v22.11.0-x64.msi"
 ```
 
 Use the new test npm registry route:
@@ -228,7 +228,7 @@ Use the new test runtime download route:
 
 ```bash
 curl -L -O "https://box.w0x7ce.eu/downloads/node/v22.11.0/node-v22.11.0-x64.msi"
-curl -L -O "https://box.w0x7ce.eu/downloads/https://example.com/file.zip"
+curl -L -O "https://box.w0x7ce.eu/downloads/https://nodejs.org/dist/v22.11.0/node-v22.11.0-x64.msi"
 ```
 
 ## Project Layout

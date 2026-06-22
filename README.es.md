@@ -75,7 +75,7 @@ El `wrangler.toml` por defecto es portable: no vincula el dominio del mantenedor
 pip install numpy -i https://box.w0x7ce.eu/pypi/simple/
 export HF_ENDPOINT=https://box.w0x7ce.eu/hf
 huggingface-cli download gpt2
-git clone https://box.w0x7ce.eu/github/tianrking/box-tools.git
+git clone https://box.w0x7ce.eu/github/vercel/next.js.git
 docker pull box.w0x7ce.eu/library/nginx:latest
 npm install lodash --registry=https://box.w0x7ce.eu/npm/
 go env -w GOPROXY=https://box.w0x7ce.eu/go,direct
