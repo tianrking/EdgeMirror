@@ -18,6 +18,7 @@
 </p>
 
 <p align="center">
+  <img alt="Verify workflow" src="https://github.com/tianrking/box-tools/actions/workflows/verify.yml/badge.svg">
   <img alt="Runtime" src="https://img.shields.io/badge/runtime-Cloudflare%20Workers%20%7C%20Vercel%20Functions-0f172a?style=for-the-badge">
   <img alt="Language" src="https://img.shields.io/badge/language-JavaScript%20ESM-f7df1e?style=for-the-badge&labelColor=111827">
   <img alt="Package manager" src="https://img.shields.io/badge/package-npm-cb3837?style=for-the-badge">
@@ -193,4 +194,4 @@ For Vercel custom domains, add the domains in the Vercel dashboard. The same hos
 - Add configurable service domains through environment variables.
 - Add structured access logs and optional request tracing.
 - Add per-tool smoke tests with mocked upstream responses.
-- Add GitHub Actions for automated verification on every push.
+- Add deployment preview screenshots for the portal and tool pages.

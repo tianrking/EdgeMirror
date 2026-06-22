@@ -18,6 +18,7 @@
 </p>
 
 <p align="center">
+  <img alt="Verify workflow" src="https://github.com/tianrking/box-tools/actions/workflows/verify.yml/badge.svg">
   <img alt="Runtime" src="https://img.shields.io/badge/runtime-Cloudflare%20Workers%20%7C%20Vercel%20Functions-0f172a?style=for-the-badge">
   <img alt="Language" src="https://img.shields.io/badge/language-JavaScript%20ESM-f7df1e?style=for-the-badge&labelColor=111827">
   <img alt="Package manager" src="https://img.shields.io/badge/package-npm-cb3837?style=for-the-badge">
@@ -193,4 +194,4 @@ wrangler.toml             Cloudflare Workers 配置
 - 支持通过环境变量配置服务域名。
 - 增加结构化访问日志和可选请求追踪。
 - 为每个工具补充 mock upstream 的 smoke test。
-- 增加 GitHub Actions，在每次 push 时自动验证。
+- 增加门户和工具页面的部署预览截图。
