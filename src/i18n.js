@@ -58,7 +58,44 @@ export function renderClientI18nScript(currentLang) {
     dictionary: UI_TRANSLATIONS[currentLang] ?? UI_TRANSLATIONS.en,
   }).replaceAll("</", "<\\/");
 
-  return `<script>window.__DEVBOX_I18N__=${payload};(${clientI18n.toString()})();</script>`;
+  return `<script>window.__DEVBOX_I18N__=${payload};(function(){
+  var config = window.__DEVBOX_I18N__;
+  if (!config || !config.dictionary) return;
+  document.documentElement.lang = config.htmlLang || "en";
+  var dictionary = config.dictionary;
+  var skipTags = new Set(["SCRIPT", "STYLE", "CODE", "PRE", "SVG", "PATH"]);
+  function translate(value) {
+    if (!value) return value;
+    var trimmed = value.trim().replace(/\\s+/g, " ");
+    return dictionary[trimmed] || value;
+  }
+  function applyTranslations() {
+    document.querySelectorAll("input[placeholder], textarea[placeholder]").forEach(function(element) {
+      var next = translate(element.getAttribute("placeholder"));
+      if (next) element.setAttribute("placeholder", next);
+    });
+    if (!document.body) return;
+    var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    var nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach(function(node) {
+      var parent = node.parentElement;
+      if (!parent || skipTags.has(parent.tagName) || parent.closest("script,style,code,pre,svg")) return;
+      var text = node.nodeValue;
+      var trimmed = text.trim().replace(/\\s+/g, " ");
+      var replacement = dictionary[trimmed];
+      if (!replacement) return;
+      var leading = (text.match(/^\\s*/) || [""])[0];
+      var trailing = (text.match(/\\s*$/) || [""])[0];
+      node.nodeValue = leading + replacement + trailing;
+    });
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", applyTranslations, { once: true });
+  } else {
+    applyTranslations();
+  }
+})();</script>`;
 }
 
 const UI_TRANSLATIONS = {
@@ -169,46 +206,3 @@ const UI_TRANSLATIONS = {
     "e.g. nginx:latest or quay.io/coreos/etcd": "例如：nginx:latest 或 quay.io/coreos/etcd",
   },
 };
-
-function clientI18n() {
-  const config = window.__DEVBOX_I18N__;
-  if (!config || !config.dictionary) return;
-  document.documentElement.lang = config.htmlLang || "en";
-
-  const dictionary = config.dictionary;
-  const skipTags = new Set(["SCRIPT", "STYLE", "CODE", "PRE", "SVG", "PATH"]);
-  const translate = (value) => {
-    if (!value) return value;
-    const trimmed = value.trim().replace(/\s+/g, " ");
-    return dictionary[trimmed] || value;
-  };
-
-  const applyTranslations = () => {
-    document.querySelectorAll("input[placeholder], textarea[placeholder]").forEach((element) => {
-      const next = translate(element.getAttribute("placeholder"));
-      if (next) element.setAttribute("placeholder", next);
-    });
-
-    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
-    const nodes = [];
-    while (walker.nextNode()) nodes.push(walker.currentNode);
-
-    nodes.forEach((node) => {
-      const parent = node.parentElement;
-      if (!parent || skipTags.has(parent.tagName) || parent.closest("script,style,code,pre,svg")) return;
-      const text = node.nodeValue;
-      const trimmed = text.trim().replace(/\s+/g, " ");
-      const replacement = dictionary[trimmed];
-      if (!replacement) return;
-      const leading = text.match(/^\s*/)?.[0] || "";
-      const trailing = text.match(/\s*$/)?.[0] || "";
-      node.nodeValue = `${leading}${replacement}${trailing}`;
-    });
-  };
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", applyTranslations, { once: true });
-  } else {
-    applyTranslations();
-  }
-}
