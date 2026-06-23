@@ -78,9 +78,8 @@ export function renderAcceleratorPage({
       <div class="recipe-grid">
         ${cards.map((card) => commandCard(card, ui)).join("")}
       </div>
+      <p class="note-panel">${escapeHtml(note)}</p>
     </section>
-
-    <p class="note-panel">${escapeHtml(note)}</p>
   </main>
   <script>
     (function () {
@@ -118,41 +117,49 @@ function acceleratorPageCss(accent, accentStrong) {
     :root {
       --accent: ${accent};
       --accent-strong: ${accentStrong};
-      --bg: #f6f8fb;
+      --bg: #f4f7fb;
       --panel: #ffffff;
       --text: #0f172a;
-      --muted: #5f6b7a;
-      --border: #dbe4ef;
-      --code-bg: #0f172a;
-      --code-text: #dff7ec;
+      --muted: #526173;
+      --border: #d8e1ed;
+      --soft: #eef3f8;
+      --code-bg: #111827;
+      --code-text: #d9fce8;
+      --shadow: 0 16px 38px rgba(15, 23, 42, 0.07);
     }
     * { box-sizing: border-box; }
     body {
       margin: 0;
       min-height: 100vh;
       color: var(--text);
-      background: linear-gradient(180deg, #ffffff 0%, var(--bg) 46%, #edf3f8 100%);
+      background: linear-gradient(180deg, #ffffff 0%, var(--bg) 42%, #eaf0f7 100%);
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
     .accelerator-shell {
-      width: min(1120px, calc(100% - 32px));
+      width: min(1160px, calc(100% - 32px));
       margin: 0 auto;
-      padding: 48px 0 72px;
+      padding: 40px 0 72px;
     }
     .accelerator-hero {
       display: grid;
-      grid-template-columns: minmax(0, 0.95fr) minmax(360px, 1.05fr);
-      gap: 22px;
+      grid-template-columns: minmax(0, 0.9fr) minmax(380px, 1.1fr);
+      gap: 0;
       align-items: stretch;
-      margin-bottom: 20px;
+      overflow: hidden;
+      margin-bottom: 18px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
     }
     .hero-copy {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      min-height: 252px;
-      padding: 30px 0 30px 20px;
+      min-height: 288px;
+      padding: 34px 32px;
       border-left: 6px solid var(--accent-strong);
+      background: linear-gradient(180deg, #ffffff, #f8fafc);
     }
     .status-pill {
       align-self: flex-start;
@@ -175,7 +182,7 @@ function acceleratorPageCss(accent, accentStrong) {
     }
     h1 {
       margin: 16px 0 12px;
-      font-size: clamp(36px, 5vw, 58px);
+      font-size: clamp(34px, 4.4vw, 54px);
       line-height: 1.02;
       letter-spacing: 0;
     }
@@ -187,25 +194,26 @@ function acceleratorPageCss(accent, accentStrong) {
       max-width: 720px;
     }
     .quick-card,
-    .recipe-card,
-    .note-panel {
-      background: rgba(255, 255, 255, 0.92);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      box-shadow: 0 14px 34px rgba(15, 23, 42, 0.06);
-    }
+    .recipe-card { background: var(--panel); }
     .quick-card {
       display: grid;
       align-content: stretch;
       overflow: hidden;
-      min-height: 252px;
+      min-height: 288px;
+      border-left: 1px solid var(--border);
     }
-    .recipe-section { margin-top: 22px; }
+    .recipe-section {
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
     .section-title {
       display: flex;
       align-items: center;
       gap: 12px;
-      margin-bottom: 12px;
+      margin-bottom: 16px;
       color: var(--muted);
       font-size: 13px;
       font-weight: 900;
@@ -219,11 +227,14 @@ function acceleratorPageCss(accent, accentStrong) {
     }
     .recipe-grid {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: repeat(2, minmax(320px, 1fr));
       gap: 14px;
     }
     .recipe-card {
       overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: 0 8px 22px rgba(15, 23, 42, 0.04);
     }
     .card-head {
       display: flex;
@@ -233,7 +244,7 @@ function acceleratorPageCss(accent, accentStrong) {
       min-height: 52px;
       padding: 13px 15px;
       border-bottom: 1px solid var(--border);
-      background: #ffffff;
+      background: #f8fafc;
     }
     .card-head span,
     h2 {
@@ -274,26 +285,31 @@ function acceleratorPageCss(accent, accentStrong) {
       font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
     }
     .note-panel {
-      margin-top: 18px;
-      padding: 16px 18px;
+      margin: 16px 0 0;
+      padding: 14px 16px;
       color: var(--muted);
       line-height: 1.68;
       font-size: 14px;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 8px;
     }
     @media (max-width: 860px) {
       .accelerator-shell {
-        width: min(100% - 28px, 680px);
-        padding: 30px 0 52px;
+        width: min(100% - 24px, 680px);
+        padding: 24px 0 52px;
       }
       .accelerator-hero {
         grid-template-columns: 1fr;
       }
       .hero-copy {
         min-height: 0;
-        padding: 18px 0 18px 16px;
+        padding: 22px 18px;
       }
       .quick-card {
         min-height: 0;
+        border-left: 0;
+        border-top: 1px solid var(--border);
       }
       .recipe-grid {
         grid-template-columns: 1fr;
@@ -306,6 +322,9 @@ function acceleratorPageCss(accent, accentStrong) {
       }
       .card-head {
         align-items: flex-start;
+      }
+      .recipe-section {
+        padding: 14px;
       }
     }
   `;

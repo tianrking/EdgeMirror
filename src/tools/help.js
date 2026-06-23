@@ -320,7 +320,7 @@ function htmlPage(request) {
     }
     .nav a:hover { color: var(--slate); background: #eef2ff; }
     .nav a.active { color: #fff; background: var(--slate); border-color: var(--slate); }
-    main { width: min(1180px, calc(100% - 32px)); margin: 0 auto; padding: 42px 0 84px; }
+    main { width: min(1120px, calc(100% - 32px)); margin: 0 auto; padding: 34px 0 76px; }
     .language-switch {
       display: flex;
       gap: 8px;
@@ -341,10 +341,10 @@ function htmlPage(request) {
     .language-switch a.active { color: #fff; background: var(--blue); border-color: var(--blue); }
     .hero {
       display: grid;
-      grid-template-columns: minmax(0, 1.18fr) minmax(300px, 0.82fr);
-      gap: 28px;
+      grid-template-columns: minmax(0, 1fr) minmax(340px, 0.86fr);
+      gap: 16px;
       align-items: stretch;
-      margin-bottom: 30px;
+      margin-bottom: 18px;
     }
     .hero-copy, .hero-panel, .band, .command, .route-table {
       background: rgba(255,255,255,0.88);
@@ -352,7 +352,7 @@ function htmlPage(request) {
       border-radius: 14px;
       box-shadow: var(--shadow);
     }
-    .hero-copy { padding: clamp(28px, 5vw, 48px); }
+    .hero-copy { padding: clamp(26px, 4vw, 38px); }
     .eyebrow {
       display: inline-flex;
       color: var(--blue);
@@ -365,16 +365,17 @@ function htmlPage(request) {
       text-transform: uppercase;
       margin-bottom: 18px;
     }
-    h1 { margin: 0 0 16px; font-size: clamp(38px, 7vw, 72px); line-height: 0.98; letter-spacing: 0; }
-    .lead { margin: 0; max-width: 760px; color: var(--muted); font-size: 18px; line-height: 1.72; }
-    .hero-panel { padding: 24px; display: grid; align-content: center; }
-    .metric { display: grid; gap: 6px; padding: 14px 0; border-bottom: 1px solid #edf2f7; }
-    .metric:last-child { border-bottom: 0; }
+    h1 { margin: 0 0 14px; font-size: clamp(36px, 5.4vw, 58px); line-height: 1.03; letter-spacing: 0; }
+    .lead { margin: 0; max-width: 760px; color: var(--muted); font-size: 16px; line-height: 1.68; }
+    .hero-panel { padding: 18px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; align-content: start; }
+    .metric { display: grid; gap: 5px; padding: 12px; border: 1px solid #e2e8f0; border-radius: 8px; background: #fff; }
+    .metric:nth-child(4), .metric:nth-child(5) { grid-column: 1 / -1; }
+    .metric:last-child { border-bottom: 1px solid #e2e8f0; }
     .metric span { color: var(--muted); font-size: 13px; font-weight: 800; text-transform: uppercase; }
     .metric strong { overflow-wrap: anywhere; }
-    .band { margin-top: 18px; padding: 22px; }
+    .band { margin-top: 14px; padding: 20px; }
     .section-head { display: flex; justify-content: space-between; gap: 18px; align-items: end; margin-bottom: 16px; }
-    h2 { margin: 0; font-size: 25px; letter-spacing: 0; }
+    h2 { margin: 0; font-size: 23px; letter-spacing: 0; }
     .hint { margin: 0; color: var(--muted); line-height: 1.62; max-width: 620px; }
     .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
     .card {
@@ -382,7 +383,7 @@ function htmlPage(request) {
       border: 1px solid var(--border);
       border-radius: 12px;
       padding: 18px;
-      min-height: 156px;
+      min-height: 140px;
     }
     .card h3 { margin: 0 0 10px; font-size: 17px; }
     .card p { margin: 0; color: var(--muted); line-height: 1.58; }
@@ -480,7 +481,7 @@ function htmlPage(request) {
     }
     .hero-copy, .hero-panel, .band, .command, .route-table {
       border-radius: 8px;
-      box-shadow: 0 14px 34px rgba(15, 23, 42, 0.06);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.055);
     }
     .hero-copy {
       background:
@@ -675,10 +676,25 @@ function htmlPage(request) {
       .action-link {
         flex: 1 1 130px;
       }
+      .hero-panel { padding: 12px; gap: 8px; }
       .hero-panel {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        align-content: stretch;
-        padding: 14px;
+        display: flex;
+        overflow-x: auto;
+        scrollbar-width: none;
+      }
+      .hero-panel::-webkit-scrollbar {
+        display: none;
+      }
+      .metric {
+        flex: 0 0 156px;
+      }
+      .metric strong {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .metric:nth-child(4), .metric:nth-child(5) {
+        grid-column: auto;
       }
       .metric {
         padding: 10px 0;
