@@ -83,8 +83,8 @@ function renderPage(request, baseUrl) {
   const nav = renderToolNav(request, "crates");
 
   return renderAcceleratorPage({
-    accent: "#dea584",
-    accentStrong: "#9a3412",
+    accent: "#c9a47d",
+    accentStrong: "#a98462",
     cards: [
       {
         title: ".cargo/config.toml",

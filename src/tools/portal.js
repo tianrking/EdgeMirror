@@ -50,7 +50,7 @@ const COPY = {
 
 const SERVICE_COPY = {
   pypi: {
-    color: "#ee4c2c",
+    color: "#d89086",
     title: "PyPI / PyTorch",
     desc: {
       en: "Python packages, PyPI simple index, and PyTorch wheel downloads.",
@@ -60,7 +60,7 @@ const SERVICE_COPY = {
     command: (urls) => `pip install numpy -i ${urls.pypi}/simple/`,
   },
   hf: {
-    color: "#f59e0b",
+    color: "#d7aa45",
     title: "Hugging Face",
     desc: {
       en: "Model weights, datasets, API requests, and LFS file downloads.",
@@ -70,7 +70,7 @@ const SERVICE_COPY = {
     command: (urls) => `HF_ENDPOINT=${urls.hf} huggingface-cli download sentence-transformers/all-MiniLM-L6-v2`,
   },
   github: {
-    color: "#2da44e",
+    color: "#7ead84",
     title: "GitHub Proxy",
     desc: {
       en: "Git clone, release assets, raw files, archives, and GitHub pages.",
@@ -80,7 +80,7 @@ const SERVICE_COPY = {
     command: (urls) => `git clone ${urls.github}/vercel/next.js.git`,
   },
   docker: {
-    color: "#0ea5e9",
+    color: "#7db8d7",
     title: "Docker Registry",
     desc: {
       en: "Docker Hub and multi-registry image pulls through the current registry host.",
@@ -90,7 +90,7 @@ const SERVICE_COPY = {
     command: (_urls, dockerHost) => `docker pull ${dockerHost}/library/nginx:latest`,
   },
   mirrors: {
-    color: "#8b5cf6",
+    color: "#a99add",
     title: "Linux Mirrors",
     desc: {
       en: "APT, YUM, DNF, Pacman, wget, and curl mirror pass-through.",
@@ -100,7 +100,7 @@ const SERVICE_COPY = {
     command: (urls) => `deb ${urls.mirrors}/http://archive.ubuntu.com/ubuntu/ jammy main restricted universe multiverse`,
   },
   proxy: {
-    color: "#0284c7",
+    color: "#77b6ce",
     title: "Universal Proxy",
     desc: {
       en: "Public HTTP/HTTPS file URLs with redirect and filename handling.",
@@ -113,7 +113,7 @@ const SERVICE_COPY = {
     },
   },
   npm: {
-    color: "#cb3837",
+    color: "#d88c8d",
     title: "npm Registry",
     desc: {
       en: "npm, pnpm, and yarn registry metadata plus tarball downloads.",
@@ -123,7 +123,7 @@ const SERVICE_COPY = {
     command: (urls) => `npm install lodash --registry=${urls.npm}/`,
   },
   go: {
-    color: "#00add8",
+    color: "#80c6d8",
     title: "Go Modules",
     desc: {
       en: "GOPROXY-compatible module metadata, mod files, and zip downloads.",
@@ -133,7 +133,7 @@ const SERVICE_COPY = {
     command: (urls) => `go env -w GOPROXY=${urls.go},direct`,
   },
   maven: {
-    color: "#c71a36",
+    color: "#d58b9a",
     title: "Maven / Gradle",
     desc: {
       en: "Maven Central, Google Maven, Gradle Plugin Portal, and JitPack.",
@@ -143,7 +143,7 @@ const SERVICE_COPY = {
     command: (urls) => `maven { url = uri("${urls.maven}/maven-central") }`,
   },
   crates: {
-    color: "#b45309",
+    color: "#c69a6d",
     title: "crates.io Sparse",
     desc: {
       en: "Cargo sparse registry index and crate package downloads.",
@@ -153,7 +153,7 @@ const SERVICE_COPY = {
     command: (urls) => `sparse+${urls.crates}/`,
   },
   downloads: {
-    color: "#0f766e",
+    color: "#76b7ad",
     title: "Downloads",
     desc: {
       en: "Runtime installers, release assets, Open VSX, SourceForge, GitLab, and Gitea files.",
@@ -261,7 +261,7 @@ function serviceCard(tool, urls, dockerHost, lang, copy) {
   const description = meta?.desc?.[lang] ?? meta?.desc?.en ?? tool.description;
   const command = meta?.command ? meta.command(urls, dockerHost) : urls[tool.key];
   const href = urls[tool.key];
-  return `<article class="service-card" style="--accent:${escapeHtml(meta?.color ?? "#2563eb")}">
+  return `<article class="service-card" style="--accent:${escapeHtml(meta?.color ?? "#7da8dc")}">
     <a class="card-link" href="${escapeHtml(href)}" aria-label="${escapeHtml(copy.open)} ${escapeHtml(meta?.title ?? tool.title)}"></a>
     <div class="card-top">
       <div class="icon-mark">${escapeHtml((meta?.title ?? tool.title).slice(0, 1))}</div>
@@ -279,19 +279,19 @@ function serviceCard(tool, urls, dockerHost, lang, copy) {
 
 function portalCss() {
   return `
-    :root{--bg:#f6f8fb;--panel:#fff;--text:#0f172a;--muted:#5c6b7a;--border:#dbe5ef;--shadow:0 14px 34px rgba(15,23,42,.07);--slate:#0f172a}
-    *{box-sizing:border-box}body{margin:0;min-height:100vh;background:linear-gradient(180deg,#fff 0%,var(--bg) 48%,#eef5f9 100%);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    :root{--bg:#f8fbfd;--panel:#fff;--text:#273445;--muted:#6a7887;--border:#e1eaf2;--shadow:0 18px 44px rgba(86,112,137,.1);--slate:#526678;--mist:#f1f7fa}
+    *{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(circle at 10% 0%,rgba(125,184,215,.18),transparent 32%),radial-gradient(circle at 92% 8%,rgba(216,144,134,.13),transparent 28%),linear-gradient(180deg,#fff 0%,var(--bg) 48%,#f2f7fa 100%);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
     .portal-shell{width:min(1120px,calc(100% - 32px));margin:0 auto;padding:42px 0 76px}
     .hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(320px,.78fr);gap:14px;margin-bottom:16px}
-    .hero-copy,.hero-panel,.service-card{background:rgba(255,255,255,.92);border:1px solid var(--border);border-radius:8px;box-shadow:var(--shadow)}
-    .hero-copy{padding:clamp(26px,4vw,42px);border-left:6px solid var(--slate)}
-    .eyebrow{display:inline-flex;align-items:center;min-height:28px;padding:0 10px;border-radius:999px;background:#f1f5f9;color:var(--slate);border:1px solid var(--border);font-size:12px;font-weight:900;text-transform:uppercase}
+    .hero-copy,.hero-panel,.service-card{background:rgba(255,255,255,.84);border:1px solid var(--border);border-radius:8px;box-shadow:var(--shadow);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+    .hero-copy{padding:clamp(26px,4vw,42px);border-left:6px solid #b8c9d6}
+    .eyebrow{display:inline-flex;align-items:center;min-height:28px;padding:0 10px;border-radius:999px;background:var(--mist);color:var(--slate);border:1px solid var(--border);font-size:12px;font-weight:900;text-transform:uppercase}
     h1{margin:16px 0 12px;font-size:clamp(38px,5.6vw,64px);line-height:1.02;letter-spacing:0}p{margin:0;color:var(--muted);font-size:15px;line-height:1.66}.hero-copy p{max-width:760px;font-size:16px}
-    .hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}.primary-action,.secondary-action{display:inline-flex;align-items:center;justify-content:center;min-height:40px;border-radius:8px;padding:0 15px;text-decoration:none;font-size:13px;font-weight:900}.primary-action{background:var(--slate);color:#fff}.secondary-action{background:#fff;color:var(--slate);border:1px solid var(--border)}
-    .hero-panel{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;padding:14px;align-content:start}.metric{display:grid;gap:5px;padding:13px;border:1px solid var(--border);border-radius:8px;background:#fff}.metric.wide{grid-column:1/-1}.metric span{color:var(--muted);font-size:12px;font-weight:900;text-transform:uppercase}.metric strong{font-size:18px;overflow-wrap:anywhere}.metric:not(.wide) strong{font-size:28px}
+    .hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}.primary-action,.secondary-action{display:inline-flex;align-items:center;justify-content:center;min-height:40px;border-radius:8px;padding:0 15px;text-decoration:none;font-size:13px;font-weight:900}.primary-action{background:#e8f1f6;color:#334155;border:1px solid #d5e3ec}.secondary-action{background:#fff;color:var(--slate);border:1px solid var(--border)}
+    .hero-panel{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;padding:14px;align-content:start}.metric{display:grid;gap:5px;padding:13px;border:1px solid var(--border);border-radius:8px;background:rgba(255,255,255,.76)}.metric.wide{grid-column:1/-1}.metric span{color:var(--muted);font-size:12px;font-weight:900;text-transform:uppercase}.metric strong{font-size:18px;overflow-wrap:anywhere}.metric:not(.wide) strong{font-size:28px}
     .service-section{margin-top:18px}.section-head{display:flex;justify-content:space-between;gap:16px;align-items:end;margin:0 2px 12px}h2{margin:0 0 4px;font-size:22px}.section-head p{font-size:14px}
-    .service-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.service-card{position:relative;overflow:hidden;padding:18px;min-height:238px;display:grid;gap:12px;align-content:start}.service-card::before{content:"";position:absolute;inset:0 auto 0 0;width:5px;background:var(--accent)}.card-link{position:absolute;inset:0;z-index:1}.card-top{display:flex;align-items:center;justify-content:space-between;gap:10px}.icon-mark{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:8px;background:color-mix(in srgb,var(--accent) 14%,white);color:var(--accent);font-weight:1000}.status{display:inline-flex;align-items:center;min-height:26px;padding:0 9px;border-radius:999px;font-size:11px;font-weight:900;text-transform:uppercase}.status.stable{background:#f0fdf4;color:#166534;border:1px solid #bbf7d0}.status.test{background:#fff7ed;color:#9a3412;border:1px solid #fed7aa}
-    h3{margin:0;font-size:20px}.service-card p{min-height:74px}.command-row{position:relative;z-index:2;margin-top:auto;display:grid;gap:7px;padding:12px;border:1px solid var(--border);border-radius:8px;background:#f8fafc}.command-row span{color:var(--muted);font-size:11px;font-weight:900;text-transform:uppercase}.command-row code{color:#172033;font-size:12px;line-height:1.45;word-break:break-word;font-family:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace}.command-row button{justify-self:start;min-height:30px;border:1px solid var(--accent);border-radius:8px;background:var(--accent);color:#fff;padding:0 10px;font-size:12px;font-weight:900;cursor:pointer}
+    .service-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.service-card{position:relative;overflow:hidden;padding:18px;min-height:238px;display:grid;gap:12px;align-content:start}.service-card::before{content:"";position:absolute;inset:0 auto 0 0;width:5px;background:color-mix(in srgb,var(--accent) 68%,white)}.card-link{position:absolute;inset:0;z-index:1}.card-top{display:flex;align-items:center;justify-content:space-between;gap:10px}.icon-mark{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:8px;background:color-mix(in srgb,var(--accent) 14%,white);color:color-mix(in srgb,var(--accent) 72%,#334155);font-weight:1000}.status{display:inline-flex;align-items:center;min-height:26px;padding:0 9px;border-radius:999px;font-size:11px;font-weight:900;text-transform:uppercase}.status.stable{background:#f2fbf6;color:#477761;border:1px solid #cfeada}.status.test{background:#fff8ec;color:#9b6a2d;border:1px solid #f3ddbd}
+    h3{margin:0;font-size:20px}.service-card p{min-height:74px}.command-row{position:relative;z-index:2;margin-top:auto;display:grid;gap:7px;padding:12px;border:1px solid var(--border);border-radius:8px;background:#f8fbfd}.command-row span{color:var(--muted);font-size:11px;font-weight:900;text-transform:uppercase}.command-row code{color:#334155;font-size:12px;line-height:1.45;word-break:break-word;font-family:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace}.command-row button{justify-self:start;min-height:30px;border:1px solid color-mix(in srgb,var(--accent) 34%,#fff);border-radius:8px;background:color-mix(in srgb,var(--accent) 18%,#fff);color:#334155;padding:0 10px;font-size:12px;font-weight:900;cursor:pointer}
     @media(max-width:960px){.hero,.service-grid{grid-template-columns:1fr}.hero-panel{grid-template-columns:repeat(2,minmax(0,1fr));overflow:visible}.metric.wide{grid-column:1/-1}.service-card{min-height:0}.service-card p{min-height:0}}
     @media(max-width:640px){.portal-shell{width:min(100% - 24px,640px);padding:24px 0 56px}h1{font-size:42px}.hero-copy{padding:22px 18px}.hero-panel{padding:10px}.section-head{display:block}.service-grid{gap:10px}}
   `;

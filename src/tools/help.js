@@ -274,25 +274,25 @@ function htmlPage(request) {
   <meta name="description" content="${escapeHtml(copy.metaDescription)}">
   <style>
     :root {
-      --bg: #f6f8fb;
+      --bg: #f8fbfd;
       --panel: #ffffff;
-      --text: #101827;
-      --muted: #647084;
-      --border: #dbe3ee;
-      --blue: #2563eb;
-      --green: #166534;
-      --orange: #c2410c;
-      --violet: #7c3aed;
-      --pink: #d946ef;
-      --slate: #0f172a;
-      --shadow: 0 18px 48px rgba(15, 23, 42, 0.08);
+      --text: #273445;
+      --muted: #6a7887;
+      --border: #e1eaf2;
+      --blue: #86abc4;
+      --green: #7ead84;
+      --orange: #c9a47d;
+      --violet: #a99add;
+      --pink: #d8a6ca;
+      --slate: #526678;
+      --shadow: 0 18px 44px rgba(86,112,137,0.10);
     }
     * { box-sizing: border-box; }
     body {
       margin: 0;
       min-height: 100vh;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: linear-gradient(180deg, #ffffff 0%, var(--bg) 44%, #eef3f9 100%);
+      background: radial-gradient(circle at 12% 4%, rgba(134,171,196,0.16), transparent 30%), radial-gradient(circle at 88% 8%, rgba(169,154,221,0.12), transparent 28%), linear-gradient(180deg, #ffffff 0%, var(--bg) 52%, #f3f7fa 100%);
       color: var(--text);
     }
     .nav {
@@ -318,8 +318,8 @@ function htmlPage(request) {
       border: 1px solid transparent;
       transition: all 0.18s ease;
     }
-    .nav a:hover { color: var(--slate); background: #eef2ff; }
-    .nav a.active { color: #fff; background: var(--slate); border-color: var(--slate); }
+    .nav a:hover { color: #334155; background: #f1f7fa; }
+    .nav a.active { color: #334155; background: #eef5f8; border-color: #d5e3ec; }
     main { width: min(1120px, calc(100% - 32px)); margin: 0 auto; padding: 34px 0 76px; }
     .language-switch {
       display: flex;
@@ -338,7 +338,7 @@ function htmlPage(request) {
       border-radius: 999px;
       background: rgba(255,255,255,0.78);
     }
-    .language-switch a.active { color: #fff; background: var(--blue); border-color: var(--blue); }
+    .language-switch a.active { color: #334155; background: #eef5f8; border-color: #d5e3ec; }
     .hero {
       display: grid;
       grid-template-columns: minmax(0, 1fr) minmax(340px, 0.86fr);
@@ -368,7 +368,7 @@ function htmlPage(request) {
     h1 { margin: 0 0 14px; font-size: clamp(36px, 5.4vw, 58px); line-height: 1.03; letter-spacing: 0; }
     .lead { margin: 0; max-width: 760px; color: var(--muted); font-size: 16px; line-height: 1.68; }
     .hero-panel { padding: 18px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; align-content: start; }
-    .metric { display: grid; gap: 5px; padding: 12px; border: 1px solid #e2e8f0; border-radius: 8px; background: #fff; }
+    .metric { display: grid; gap: 5px; padding: 12px; border: 1px solid #e2e8f0; border-radius: 8px; background: rgba(255,255,255,0.82); }
     .metric:nth-child(4), .metric:nth-child(5) { grid-column: 1 / -1; }
     .metric:last-child { border-bottom: 1px solid #e2e8f0; }
     .metric span { color: var(--muted); font-size: 13px; font-weight: 800; text-transform: uppercase; }
@@ -379,7 +379,7 @@ function htmlPage(request) {
     .hint { margin: 0; color: var(--muted); line-height: 1.62; max-width: 620px; }
     .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
     .card {
-      background: #fff;
+      background: rgba(255,255,255,0.82);
       border: 1px solid var(--border);
       border-radius: 12px;
       padding: 18px;
@@ -392,17 +392,18 @@ function htmlPage(request) {
       align-items: center;
       padding: 5px 10px;
       border-radius: 999px;
-      color: #fff;
-      background: var(--blue);
+      color: #5f8da6;
+      background: #f0f9fc;
+      border: 1px solid #d4e8f1;
       font-size: 12px;
       font-weight: 900;
       margin-bottom: 12px;
     }
-    .pill.green { background: var(--green); }
-    .pill.orange { background: var(--orange); }
-    .pill.violet { background: var(--violet); }
-    .pill.pink { background: var(--pink); }
-    .pill.dark { background: var(--slate); }
+    .pill.green { background: #f2fbf6; color: #477761; }
+    .pill.orange { background: #fff8ec; color: #9b6a2d; }
+    .pill.violet { background: #f2effb; color: #665b8c; }
+    .pill.pink { background: #fbf0f7; color: #946684; }
+    .pill.dark { background: #eef5f8; color: #526678; }
     .route-table {
       width: 100%;
       border-collapse: separate;
@@ -427,7 +428,7 @@ function htmlPage(request) {
     .route-card {
       border: 1px solid var(--border);
       border-radius: 8px;
-      background: #fff;
+      background: rgba(255,255,255,0.82);
       padding: 16px;
     }
     .route-card-head {
@@ -462,8 +463,9 @@ function htmlPage(request) {
       margin: 0;
       padding: 16px;
       overflow-x: auto;
-      background: #101827;
-      color: #d1fae5;
+      background: #f8fbfd;
+      color: #334155;
+      border-top: 1px solid var(--border);
       font-size: 13px;
       line-height: 1.62;
       white-space: pre-wrap;
@@ -483,12 +485,12 @@ function htmlPage(request) {
     }
     .hero-copy, .hero-panel, .band, .command, .route-table {
       border-radius: 8px;
-      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.055);
+      box-shadow: 0 18px 44px rgba(86,112,137,0.10);
     }
     .hero-copy {
       background:
         linear-gradient(135deg, rgba(255,255,255,0.94), rgba(246,248,251,0.94)),
-        linear-gradient(90deg, rgba(37,99,235,0.08), rgba(22,163,74,0.08));
+        linear-gradient(90deg, rgba(134,171,196,0.10), rgba(126,173,132,0.08));
       position: relative;
       overflow: hidden;
     }
@@ -497,7 +499,7 @@ function htmlPage(request) {
       position: absolute;
       inset: auto 0 0 0;
       height: 5px;
-      background: linear-gradient(90deg, var(--blue), var(--green), var(--orange), var(--violet));
+      background: linear-gradient(90deg, #b7d5e5, #cfeada, #f3ddbd, #ded7f2);
     }
     .hero-actions {
       display: flex;
@@ -513,7 +515,7 @@ function htmlPage(request) {
       border-radius: 8px;
       border: 1px solid var(--border);
       padding: 0 14px;
-      background: #fff;
+      background: rgba(255,255,255,0.82);
       color: var(--slate);
       text-decoration: none;
       font-size: 13px;
@@ -521,9 +523,9 @@ function htmlPage(request) {
       cursor: pointer;
     }
     .action-link.primary {
-      background: var(--slate);
-      border-color: var(--slate);
-      color: #fff;
+      background: #eef5f8;
+      border-color: #d5e3ec;
+      color: #334155;
     }
     .copy-button:hover, .action-link:hover {
       border-color: #94a3b8;
@@ -546,7 +548,7 @@ function htmlPage(request) {
       min-height: 42px;
       border-radius: 8px;
       border: 1px solid var(--border);
-      background: #fff;
+      background: rgba(255,255,255,0.82);
       padding: 0 13px;
       color: var(--text);
       font: inherit;
@@ -576,8 +578,8 @@ function htmlPage(request) {
       cursor: pointer;
     }
     .segmented button.active {
-      background: var(--slate);
-      color: #fff;
+      background: #eef5f8;
+      color: #334155;
     }
     .route-table tbody tr[hidden], .command[hidden] {
       display: none;
@@ -591,7 +593,7 @@ function htmlPage(request) {
       border: 1px dashed var(--border);
       border-radius: 8px;
       color: var(--muted);
-      background: #fff;
+      background: rgba(255,255,255,0.82);
       text-align: center;
       font-weight: 800;
     }
@@ -628,7 +630,7 @@ function htmlPage(request) {
       border: 1px solid var(--border);
       border-radius: 8px;
       padding: 18px;
-      background: #fff;
+      background: rgba(255,255,255,0.82);
     }
     .deploy-step h3 {
       margin: 0 0 10px;

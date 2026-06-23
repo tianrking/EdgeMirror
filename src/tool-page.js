@@ -29,7 +29,7 @@ const UI_COPY = {
 };
 
 export function renderAcceleratorPage({
-  accent = "#2563eb",
+  accent = "#7da8dc",
   accentStrong = accent,
   cards,
   copy,
@@ -130,22 +130,24 @@ function acceleratorPageCss(accent, accentStrong) {
     :root {
       --accent: ${accent};
       --accent-strong: ${accentStrong};
-      --bg: #f7fafc;
+      --bg: #f8fbfd;
       --panel: #ffffff;
-      --text: #0f172a;
-      --muted: #526173;
-      --border: #dbe5ef;
-      --soft: #f1f5f9;
-      --code-bg: #111827;
-      --code-text: #d9fce8;
-      --shadow: 0 10px 28px rgba(15, 23, 42, 0.06);
+      --text: #243141;
+      --muted: #6d7b8a;
+      --border: #e1eaf2;
+      --soft: #f4f8fb;
+      --code-bg: #f7fafc;
+      --code-text: #2d3d4f;
+      --shadow: 0 18px 42px rgba(86, 112, 137, 0.09);
     }
     * { box-sizing: border-box; }
     body {
       margin: 0;
       min-height: 100vh;
       color: var(--text);
-      background: linear-gradient(180deg, #ffffff 0%, var(--bg) 52%, #eef4f8 100%);
+      background:
+        radial-gradient(circle at top left, color-mix(in srgb, var(--accent) 13%, transparent) 0, transparent 32%),
+        linear-gradient(180deg, #ffffff 0%, var(--bg) 54%, #f2f7fa 100%);
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
     .accelerator-shell {
@@ -176,17 +178,17 @@ function acceleratorPageCss(accent, accentStrong) {
       min-height: 28px;
       padding: 0 11px;
       border-radius: 999px;
-      color: #9a3412;
-      background: #fff7ed;
-      border: 1px solid #fed7aa;
+      color: #9b6a2d;
+      background: #fff8ec;
+      border: 1px solid #f3ddbd;
       font-size: 12px;
       font-weight: 900;
       text-transform: uppercase;
     }
     .status-pill[data-status="stable"] {
-      color: #166534;
-      background: #f0fdf4;
-      border-color: #bbf7d0;
+      color: #477761;
+      background: #f2fbf6;
+      border-color: #cfeada;
     }
     h1 {
       margin: 14px 0 10px;
@@ -203,7 +205,7 @@ function acceleratorPageCss(accent, accentStrong) {
     }
     .quick-card,
     .recipe-card {
-      background: rgba(255, 255, 255, 0.92);
+      background: rgba(255, 255, 255, 0.86);
       border: 1px solid var(--border);
       border-radius: 8px;
       box-shadow: var(--shadow);
@@ -253,7 +255,7 @@ function acceleratorPageCss(accent, accentStrong) {
       min-height: 52px;
       padding: 13px 15px;
       border-bottom: 1px solid var(--border);
-      background: #ffffff;
+      background: linear-gradient(180deg, #ffffff, #fbfdff);
     }
     .card-head span,
     h2 {
@@ -269,15 +271,15 @@ function acceleratorPageCss(accent, accentStrong) {
       min-height: 32px;
       padding: 0 11px;
       border-radius: 8px;
-      border: 1px solid var(--accent-strong);
-      color: #ffffff;
-      background: var(--accent-strong);
+      border: 1px solid color-mix(in srgb, var(--accent-strong) 44%, #ffffff);
+      color: #334155;
+      background: color-mix(in srgb, var(--accent) 18%, #ffffff);
       font-size: 12px;
       font-weight: 900;
       cursor: pointer;
       transition: transform 0.18s ease, filter 0.18s ease;
     }
-    button:hover { transform: translateY(-1px); filter: brightness(0.96); }
+    button:hover { transform: translateY(-1px); filter: saturate(1.05); background: color-mix(in srgb, var(--accent) 26%, #ffffff); }
     pre {
       min-height: 100%;
       margin: 0;
@@ -299,7 +301,7 @@ function acceleratorPageCss(accent, accentStrong) {
       color: var(--muted);
       line-height: 1.68;
       font-size: 14px;
-      background: rgba(255, 255, 255, 0.78);
+      background: rgba(255, 255, 255, 0.82);
       border: 1px solid var(--border);
       border-radius: 8px;
     }

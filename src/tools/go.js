@@ -59,8 +59,8 @@ function renderPage(request, baseUrl) {
   const nav = renderToolNav(request, "go");
 
   return renderAcceleratorPage({
-    accent: "#00add8",
-    accentStrong: "#0369a1",
+    accent: "#80c6d8",
+    accentStrong: "#5f9fb4",
     cards: [
       { title: copy.temporary, command: `GOPROXY=${baseUrl},direct go install golang.org/x/tools/cmd/stringer@latest` },
       { title: copy.persistent, command: `go env -w GOPROXY=${baseUrl},direct` },

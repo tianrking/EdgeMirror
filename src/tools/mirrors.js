@@ -109,17 +109,17 @@ function htmlPage(request) {
     <style>
         :root {
             --bg: #f8fafc; /* 极简灰白 */
-            --text-main: #1e293b;
-            --text-muted: #64748b;
-            --accent: #8b5cf6; /* Violet */
-            --accent-hover: #7c3aed;
-            --card-bg: rgba(255, 255, 255, 0.85);
-            --border: #e2e8f0;
-            --cmd-bg: #f1f5f9;
+            --text-main: #273445;
+            --text-muted: #6a7887;
+            --accent: #a99add;
+            --accent-hover: #9585c8;
+            --card-bg: rgba(255, 255, 255, 0.86);
+            --border: #e1eaf2;
+            --cmd-bg: #f8fbfd;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { 
-            background: var(--bg); 
+            background: radial-gradient(circle at 12% 4%, rgba(169,154,221,0.18), transparent 30%), radial-gradient(circle at 88% 8%, rgba(125,184,215,0.12), transparent 28%), linear-gradient(180deg, #ffffff 0%, var(--bg) 52%, #f3f7fa 100%); 
             color: var(--text-main); 
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; 
             display: flex; 
@@ -135,8 +135,8 @@ function htmlPage(request) {
         /* 顶部导航栏 */
         .nav { position: absolute; top: 20px; right: 30px; display: flex; gap: 10px; z-index: 100; flex-wrap: wrap; justify-content: flex-end; }
         .nav a { text-decoration: none; color: var(--text-muted); font-size: 13px; font-weight: 600; padding: 6px 14px; border-radius: 20px; transition: all 0.2s; background: rgba(255,255,255,0.6); border: 1px solid rgba(0,0,0,0.05); backdrop-filter: blur(4px); }
-        .nav a:hover { color: #000; background: #fff; border-color: var(--accent); }
-        .nav a.active { background: var(--accent); color: #fff; border-color: var(--accent); box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3); }
+        .nav a:hover { color: #334155; background: #fff; border-color: #ded7f2; }
+        .nav a.active { background: #f2effb; color: #665b8c; border-color: #ded7f2; box-shadow: 0 8px 22px rgba(86,112,137,0.12); }
 
         .container { width: 100%; max-width: 680px; position: relative; z-index: 1; }
         
@@ -147,23 +147,23 @@ function htmlPage(request) {
         .card-wrap {
             background-color: var(--card-bg);
             backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(225, 234, 242, 0.86);
             border-radius: 16px;
             padding: 40px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 18px 44px rgba(86,112,137,0.10);
             text-align: center;
             transition: transform 0.3s ease;
         }
-        .card-wrap:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08); }
+        .card-wrap:hover { transform: translateY(-3px); box-shadow: 0 22px 52px rgba(86,112,137,0.12); }
 
         .header { margin-bottom: 35px; }
-        .logo { width: 64px; height: 64px; fill: var(--accent); margin-bottom: 15px; filter: drop-shadow(0 4px 6px rgba(139, 92, 246, 0.2)); }
+        .logo { width: 64px; height: 64px; fill: var(--accent); margin-bottom: 15px; filter: drop-shadow(0 8px 16px rgba(169,154,221,0.18)); }
         h1 { font-weight: 300; letter-spacing: -0.5px; margin: 0; font-size: 28px; }
         h1 b { font-weight: 700; color: var(--accent); }
         .subtitle { color: var(--text-muted); font-size: 14px; margin-top: 8px; font-weight: 500; }
         .repo-badge {
-            display: inline-flex; background: #ede9fe; color: #5b21b6;
-            border: 1px solid #ddd6fe; border-radius: 999px;
+            display: inline-flex; background: #f2effb; color: #665b8c;
+            border: 1px solid #ded7f2; border-radius: 999px;
             padding: 7px 12px; margin-bottom: 14px;
             font-size: 12px; font-weight: 900; text-transform: uppercase;
         }
@@ -175,7 +175,7 @@ function htmlPage(request) {
             background: #fff; border: 1px solid var(--border);
             border-radius: 10px; padding: 12px 8px; text-align: center;
         }
-        .distro-card strong { display: block; color: #312e81; font-size: 13px; margin-bottom: 4px; }
+        .distro-card strong { display: block; color: #5d547d; font-size: 13px; margin-bottom: 4px; }
         .distro-card span { color: var(--text-muted); font-size: 11px; line-height: 1.4; }
 
         .input-group { position: relative; margin-bottom: 30px; }
@@ -184,7 +184,7 @@ function htmlPage(request) {
             background: rgba(255, 255, 255, 0.9); color: var(--text-main); font-size: 16px; outline: none; 
             transition: all 0.2s; box-sizing: border-box; font-family: 'Consolas', monospace; 
         }
-        input:focus { border-color: var(--accent); background: #fff; box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15); }
+        input:focus { border-color: var(--accent); background: #fff; box-shadow: 0 0 0 3px rgba(169,154,221,0.18); }
         input::placeholder { color: #94a3b8; }
         .example-pair { margin: -12px 0 24px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; text-align: left; background: #fff; }
         .example-row { display: grid; grid-template-columns: 104px minmax(0,1fr); gap: 10px; padding: 10px 12px; border-top: 1px solid var(--border); align-items: center; }
@@ -203,8 +203,8 @@ function htmlPage(request) {
             font-size: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; cursor: pointer; 
             padding: 6px 12px; border-radius: 6px; transition: all 0.2s; background: transparent;
         }
-        .tab:hover { color: var(--accent); background: rgba(139, 92, 246, 0.05); }
-        .tab.active { color: var(--accent); background: rgba(139, 92, 246, 0.1); }
+        .tab:hover { color: #665b8c; background: rgba(169,154,221,0.12); }
+        .tab.active { color: #665b8c; background: rgba(169,154,221,0.18); }
 
         .result-card { 
             background: var(--cmd-bg); border-radius: 10px; padding: 20px; border: 1px solid var(--border); 
@@ -220,7 +220,7 @@ function htmlPage(request) {
             background: #fff; color: var(--text-muted); border: 1px solid var(--border); 
             padding: 4px 10px; border-radius: 6px; font-size: 12px; cursor: pointer; transition: all 0.2s; font-weight: 600;
         }
-        .copy-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+        .copy-btn:hover { background: #f2effb; color: #334155; border-color: #ded7f2; }
 
         .footer { margin-top: 40px; text-align: center; font-size: 12px; color: #64748b; }
         .footer a { color: #475569; font-weight: 700; }
@@ -329,9 +329,9 @@ function htmlPage(request) {
                 const btn = document.querySelector('#' + id + ' + .copy-btn');
                 const original = btn.textContent;
                 btn.textContent = "已复制";
-                btn.style.background = "#8b5cf6";
-                btn.style.color = "#fff";
-                btn.style.borderColor = "#8b5cf6";
+                btn.style.background = "#f2effb";
+                btn.style.color = "#334155";
+                btn.style.borderColor = "#ded7f2";
                 setTimeout(() => { 
                     btn.textContent = original; 
                     btn.style.background = ""; 

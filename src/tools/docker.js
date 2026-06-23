@@ -165,14 +165,14 @@ function htmlPage(request) {
     <title>Docker Proxy Accelerator | w0x7ce</title>
     <style>
         :root { 
-            --text-main: #24292f; 
-            --text-muted: #57606a; 
-            --accent: #0969da; 
-            --btn-bg: #0369a1; /* accessible Docker Blue */
-            --btn-hover: #075985;
-            --border: #d0d7de; 
-            --cmd-bg: #161b22; 
-            --cmd-text: #7ee787; 
+            --text-main: #2f3d4b; 
+            --text-muted: #73808d; 
+            --accent: #7db8d7; 
+            --btn-bg: #e6f3f8;
+            --btn-hover: #d9ecf4;
+            --border: #e3ebf2; 
+            --cmd-bg: #f8fbfd; 
+            --cmd-text: #334155; 
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
@@ -186,7 +186,7 @@ function htmlPage(request) {
             flex-direction: column; 
             overflow: hidden; 
             position: relative; 
-            background: #f0f2f5; 
+            background: radial-gradient(circle at 12% 4%, rgba(125,184,215,0.18), transparent 30%), radial-gradient(circle at 88% 8%, rgba(128,198,216,0.12), transparent 28%), linear-gradient(180deg, #ffffff 0%, #f8fbfd 52%, #f3f7fa 100%); 
         }
 
         /* 顶部导航栏 */
@@ -218,9 +218,9 @@ function htmlPage(request) {
         }
         .nav a.active { 
             background: var(--btn-bg); 
-            color: #fff; 
+            color: #334155; 
             border-color: var(--btn-bg); 
-            box-shadow: 0 2px 8px rgba(13, 183, 237, 0.3); 
+            box-shadow: 0 8px 22px rgba(86,112,137,0.12); 
         }
 
         #canvas-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
@@ -228,24 +228,24 @@ function htmlPage(request) {
         .container { 
             width: 100%; 
             max-width: 680px; 
-            background-color: rgba(255, 255, 255, 0.85); 
+            background-color: rgba(255, 255, 255, 0.86); 
             backdrop-filter: blur(12px); 
             -webkit-backdrop-filter: blur(12px); 
-            border: 1px solid rgba(255, 255, 255, 0.5); 
+            border: 1px solid rgba(225, 234, 242, 0.86); 
             border-radius: 12px; 
             padding: 40px; 
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); 
+            box-shadow: 0 18px 44px rgba(86,112,137,0.10); 
             text-align: center; 
             position: relative; 
             z-index: 1; 
             transition: transform 0.3s ease; 
         }
-        .container:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12); }
+        .container:hover { transform: translateY(-2px); box-shadow: 0 22px 52px rgba(86,112,137,0.12); }
         
         .header { margin-bottom: 30px; }
-        .logo { width: 64px; height: 64px; margin-bottom: 15px; fill: #0369a1; }
+        .logo { width: 64px; height: 64px; margin-bottom: 15px; fill: #7db8d7; }
         h1 { font-size: 24px; font-weight: 300; letter-spacing: -0.5px; margin: 0; }
-        h1 b { font-weight: 600; color: #0369a1; }
+        h1 b { font-weight: 600; color: #6298b5; }
         
         .input-group { margin-bottom: 25px; text-align: left; position: relative; }
         label { display: block; margin-bottom: 8px; font-size: 14px; font-weight: 600; color: var(--text-main); }
@@ -264,7 +264,7 @@ function htmlPage(request) {
         input[type="text"]:focus { 
             background-color: #fff; 
             border-color: var(--accent); 
-            box-shadow: 0 0 0 3px rgba(13, 183, 237, 0.3); 
+            box-shadow: 0 0 0 3px rgba(125,184,215,0.18); 
         }
         
         .result-box { 
@@ -275,12 +275,12 @@ function htmlPage(request) {
             text-align: left; 
             position: relative; 
             display: none; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15); 
-            border: 1px solid rgba(255,255,255,0.1); 
+            box-shadow: 0 10px 24px rgba(86,112,137,0.08); 
+            border: 1px solid var(--border); 
         }
         .result-box.show { display: block; animation: slideDown 0.3s ease-out; }
         
-        .cmd-label { font-size: 12px; color: #8b949e; margin-bottom: 6px; display: block; }
+        .cmd-label { font-size: 12px; color: #7b8794; margin-bottom: 6px; display: block; }
         .cmd-text { font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace; color: var(--cmd-text); font-size: 14px; word-break: break-all; line-height: 1.5; padding-right: 60px; }
         .example-pair { margin-top: 16px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; text-align: left; background: rgba(255,255,255,0.72); }
         .example-row { display: grid; grid-template-columns: 96px minmax(0,1fr); gap: 10px; padding: 10px 12px; border-top: 1px solid var(--border); align-items: center; }
@@ -290,18 +290,18 @@ function htmlPage(request) {
         
         .copy-btn { 
             position: absolute; top: 50%; right: 12px; transform: translateY(-50%); 
-            background-color: var(--btn-bg); color: white; 
-            border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; 
+            background-color: var(--btn-bg); color: #334155; 
+            border: 1px solid #d4e8f1; border-radius: 6px; 
             padding: 6px 12px; cursor: pointer; font-size: 13px; font-weight: 600; 
             transition: all 0.2s; 
-            box-shadow: 0 1px 0 rgba(0,0,0,0.1); 
+            box-shadow: none; 
         }
-        .copy-btn:hover { background-color: var(--btn-hover); box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .copy-btn:hover { background-color: var(--btn-hover); box-shadow: 0 8px 18px rgba(86,112,137,0.10); }
         .copy-btn:active { transform: translateY(-50%) scale(0.96); }
         
         .tips { margin-top: 30px; font-size: 13px; color: var(--text-muted); text-align: left; border-top: 1px solid var(--border); padding-top: 20px; }
         .tips p { margin-bottom: 8px; display: flex; align-items: center; }
-        .badge { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 800; margin-right: 8px; background: #e1f6fc; color: #075985; border: 1px solid rgba(7, 89, 133, 0.22); }
+        .badge { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 800; margin-right: 8px; background: #f0f9fc; color: #5f8da6; border: 1px solid rgba(7, 89, 133, 0.22); }
         
         .footer { margin-top: 30px; font-size: 13px; color: #475569; text-align: center; position: relative; z-index: 1; }
         .footer a { text-decoration: none; color: #334155; font-weight: 700; transition: color 0.2s; }
@@ -388,7 +388,7 @@ function htmlPage(request) {
                 const btn = document.querySelector('.copy-btn');
                 const originalText = btn.textContent;
                 btn.textContent = "已复制!";
-                btn.style.backgroundColor = "#2da44e"; // Green for success
+                btn.style.backgroundColor = "#e6f3f8"; // Green for success
                 setTimeout(() => { btn.textContent = originalText; btn.style.backgroundColor = ""; }, 2000);
             });
         }
@@ -411,7 +411,7 @@ function htmlPage(request) {
                     this.x = Math.random() * width; this.y = Math.random() * height; 
                     this.vx = (Math.random() - 0.5) * 1.5; this.vy = (Math.random() - 0.5) * 1.5; 
                     this.size = Math.random() * 2 + 1; 
-                    this.color = 'rgba(13, 183, 237, 0.4)'; // Docker Blue
+                    this.color = 'rgba(125,184,215,0.18)'; // Docker Blue
                 }
                 update() {
                     this.x += this.vx; this.y += this.vy;
@@ -440,7 +440,7 @@ function htmlPage(request) {
                         if (distance < connectionDistance) {
                             ctx.beginPath();
                             let opacity = 1 - (distance / connectionDistance);
-                            ctx.strokeStyle = 'rgba(13, 183, 237, ' + opacity * 0.2 + ')'; ctx.lineWidth = 1; ctx.moveTo(particles[i].x, particles[i].y); ctx.lineTo(particles[j].x, particles[j].y); ctx.stroke();
+                            ctx.strokeStyle = 'rgba(125,184,215,' + opacity * 0.12 + ')'; ctx.lineWidth = 1; ctx.moveTo(particles[i].x, particles[i].y); ctx.lineTo(particles[j].x, particles[j].y); ctx.stroke();
                         }
                     }
                 }

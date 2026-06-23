@@ -165,14 +165,14 @@ function htmlPage(request) {
     <link rel="icon" href="https://github.githubassets.com/favicons/favicon.svg">
     <style>
         :root {
-            --text-main: #24292f;
-            --text-muted: #57606a;
-            --accent: #0969da;
-            --btn-bg: #2da44e;
-            --btn-hover: #2c974b;
-            --border: #d0d7de;
-            --cmd-bg: #161b22;
-            --cmd-text: #7ee787;
+            --text-main: #2f3d4b;
+            --text-muted: #73808d;
+            --accent: #86abc4;
+            --btn-bg: #e8f4ec;
+            --btn-hover: #dceee3;
+            --border: #e3ebf2;
+            --cmd-bg: #f8fbfd;
+            --cmd-text: #334155;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
@@ -219,9 +219,9 @@ function htmlPage(request) {
         }
         .nav a.active { 
             background: var(--btn-bg); /* GitHub Green */
-            color: #fff; 
+            color: #334155; 
             border-color: var(--btn-bg); 
-            box-shadow: 0 2px 8px rgba(45, 164, 78, 0.3); 
+            box-shadow: 0 8px 22px rgba(86,112,137,0.12); 
         }
         /* ======================== */
 
@@ -242,10 +242,10 @@ function htmlPage(request) {
             background-color: rgba(255, 255, 255, 0.85); /* 半透明白 */
             backdrop-filter: blur(12px); /* 核心：毛玻璃模糊 */
             -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(225, 234, 242, 0.86);
             border-radius: 12px; 
             padding: 40px; 
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); 
+            box-shadow: 0 18px 44px rgba(86,112,137,0.10); 
             text-align: center; 
             position: relative; 
             z-index: 1; /* 保证在画布之上 */
@@ -254,11 +254,11 @@ function htmlPage(request) {
         
         .container:hover {
             transform: translateY(-2px); /* 悬停微浮 */
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+            box-shadow: 0 22px 52px rgba(86,112,137,0.12);
         }
 
         .header { margin-bottom: 30px; }
-        .logo { width: 56px; height: 56px; margin-bottom: 15px; fill: #24292f; }
+        .logo { width: 56px; height: 56px; margin-bottom: 15px; fill: #6f7f8d; }
         h1 { font-size: 24px; font-weight: 300; letter-spacing: -0.5px; margin: 0; }
         h1 b { font-weight: 600; }
         
@@ -279,7 +279,7 @@ function htmlPage(request) {
         input[type="text"]:focus { 
             background-color: #fff; 
             border-color: var(--accent); 
-            box-shadow: 0 0 0 3px rgba(9,105,218,0.3); 
+            box-shadow: 0 0 0 3px rgba(134,171,196,0.18); 
         }
         
         .result-box { 
@@ -290,12 +290,12 @@ function htmlPage(request) {
             text-align: left; 
             position: relative; 
             display: none; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15); 
-            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 10px 24px rgba(86,112,137,0.08); 
+            border: 1px solid var(--border);
         }
         .result-box.show { display: block; animation: slideDown 0.3s ease-out; }
         
-        .cmd-label { font-size: 12px; color: #8b949e; margin-bottom: 6px; display: block; }
+        .cmd-label { font-size: 12px; color: #7b8794; margin-bottom: 6px; display: block; }
         .cmd-text { font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace; color: var(--cmd-text); font-size: 14px; word-break: break-all; line-height: 1.5; padding-right: 60px; }
         .example-pair { margin-top: 16px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; text-align: left; background: rgba(255,255,255,0.72); }
         .example-row { display: grid; grid-template-columns: 96px minmax(0,1fr); gap: 10px; padding: 10px 12px; border-top: 1px solid var(--border); align-items: center; }
@@ -305,18 +305,18 @@ function htmlPage(request) {
         
         .copy-btn { 
             position: absolute; top: 50%; right: 12px; transform: translateY(-50%); 
-            background-color: var(--btn-bg); color: white; 
-            border: 1px solid rgba(27,31,36,0.15); border-radius: 6px; 
+            background-color: var(--btn-bg); color: #334155; 
+            border: 1px solid #cfe4d7; border-radius: 6px; 
             padding: 6px 12px; cursor: pointer; font-size: 13px; font-weight: 600; 
             transition: all 0.2s; 
-            box-shadow: 0 1px 0 rgba(27,31,36,0.1);
+            box-shadow: none;
         }
-        .copy-btn:hover { background-color: var(--btn-hover); box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .copy-btn:hover { background-color: var(--btn-hover); box-shadow: 0 8px 18px rgba(86,112,137,0.10); }
         .copy-btn:active { transform: translateY(-50%) scale(0.96); }
 
         .tips { margin-top: 30px; font-size: 13px; color: var(--text-muted); text-align: left; border-top: 1px solid var(--border); padding-top: 20px; }
         .tips p { margin-bottom: 8px; display: flex; align-items: center; }
-        .badge { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 600; margin-right: 8px; background: #dafbe1; color: #1a7f37; border: 1px solid rgba(27,31,36,0.04); }
+        .badge { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 600; margin-right: 8px; background: #f2fbf6; color: #477761; border: 1px solid rgba(27,31,36,0.04); }
         
         .footer { 
             margin-top: 30px; 
@@ -408,7 +408,7 @@ function htmlPage(request) {
                 const btn = document.querySelector('.copy-btn');
                 const originalText = btn.textContent;
                 btn.textContent = "Success!";
-                btn.style.backgroundColor = "#2da44e";
+                btn.style.backgroundColor = "#e8f4ec";
                 setTimeout(() => { btn.textContent = originalText; btn.style.backgroundColor = ""; }, 2000);
             });
         }
@@ -450,7 +450,7 @@ function htmlPage(request) {
                     this.vx = (Math.random() - 0.5) * 1.5; // 速度 X
                     this.vy = (Math.random() - 0.5) * 1.5; // 速度 Y
                     this.size = Math.random() * 2 + 1;
-                    this.color = 'rgba(150, 160, 170, 0.5)'; // 粒子颜色
+                    this.color = 'rgba(126,173,132,0.16)'; // 粒子颜色
                 }
 
                 update() {
@@ -510,7 +510,7 @@ function htmlPage(request) {
                             ctx.beginPath();
                             // 距离越近线越粗/越明显
                             let opacity = 1 - (distance / connectionDistance);
-                            ctx.strokeStyle = 'rgba(150, 160, 170, ' + opacity * 0.2 + ')'; 
+                            ctx.strokeStyle = 'rgba(134,171,196,' + opacity * 0.12 + ')'; 
                             ctx.lineWidth = 1;
                             ctx.moveTo(particles[i].x, particles[i].y);
                             ctx.lineTo(particles[j].x, particles[j].y);

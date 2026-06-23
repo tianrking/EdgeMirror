@@ -60,8 +60,8 @@ function renderPage(request, baseUrl) {
   const yarnCommand = `yarn config set registry ${baseUrl}/`;
 
   return renderAcceleratorPage({
-    accent: "#cb3837",
-    accentStrong: "#b91c1c",
+    accent: "#d88c8d",
+    accentStrong: "#b76f74",
     cards: [
       { title: "npm", command: npmCommand },
       { title: "pnpm", command: pnpmCommand },

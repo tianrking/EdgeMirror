@@ -61,8 +61,8 @@ function renderPage(request, baseUrl) {
   const nav = renderToolNav(request, "maven");
 
   return renderAcceleratorPage({
-    accent: "#c71a36",
-    accentStrong: "#be123c",
+    accent: "#d58b9a",
+    accentStrong: "#b76f80",
     cards: [
       {
         title: "Gradle Kotlin DSL",

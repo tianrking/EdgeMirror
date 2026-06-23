@@ -217,43 +217,44 @@ function htmlPage(request) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Universal Python Proxy | w0x7ce</title>
     <style>
-        :root { --text-main: #24292f; --text-muted: #57606a; --accent: #ee4c2c; /* PyTorch Red */ --btn-bg: #3775a9; /* Python Blue */ --btn-hover: #2a5b84; --border: #d0d7de; --cmd-bg: #161b22; --cmd-text: #7ee787; }
+        :root { --text-main: #2f3d4b; --text-muted: #73808d; --accent: #d89086; --btn-bg: #e8f1f6; --btn-hover: #dbe9f0; --border: #e3ebf2; --cmd-bg: #f8fbfd; --cmd-text: #334155; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; color: var(--text-main); display: flex; justify-content: center; align-items: center; min-height: 100vh; flex-direction: column; overflow: hidden; position: relative; background: #f0f2f5; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; color: var(--text-main); display: flex; justify-content: center; align-items: center; min-height: 100vh; flex-direction: column; overflow: hidden; position: relative; background: radial-gradient(circle at 12% 4%, rgba(216,144,134,0.16), transparent 30%), radial-gradient(circle at 88% 8%, rgba(125,184,215,0.14), transparent 28%), linear-gradient(180deg, #ffffff 0%, #f8fbfd 52%, #f3f7fa 100%); }
         
         /* 顶部导航栏 */
         .nav { position: absolute; top: 20px; right: 30px; display: flex; gap: 10px; z-index: 100; flex-wrap: wrap; justify-content: flex-end; }
         .nav a { text-decoration: none; color: #57606a; font-size: 13px; font-weight: 600; padding: 6px 14px; border-radius: 20px; transition: all 0.2s; background: rgba(255,255,255,0.6); border: 1px solid rgba(0,0,0,0.08); backdrop-filter: blur(4px); }
         .nav a:hover { color: var(--btn-bg); background: #fff; }
-        .nav a.active { background: var(--btn-bg); color: #fff; border-color: var(--btn-bg); box-shadow: 0 2px 8px rgba(55, 117, 169, 0.3); }
+        .nav a.active { background: var(--btn-bg); color: #334155; border-color: #d5e3ec; box-shadow: 0 8px 22px rgba(86,112,137,0.12); }
 
         #canvas-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
-        .container { width: 100%; max-width: 680px; background-color: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.5); border-radius: 12px; padding: 40px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); text-align: center; position: relative; z-index: 1; transition: transform 0.3s ease; }
-        .container:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12); }
+        .container { width: 100%; max-width: 680px; background-color: rgba(255, 255, 255, 0.86); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(225, 234, 242, 0.86); border-radius: 12px; padding: 40px; box-shadow: 0 18px 44px rgba(86,112,137,0.10); text-align: center; position: relative; z-index: 1; transition: transform 0.3s ease; }
+        .container:hover { transform: translateY(-2px); box-shadow: 0 22px 52px rgba(86,112,137,0.12); }
         .header { margin-bottom: 30px; }
         .logo { width: 64px; height: 64px; margin-bottom: 15px; }
         h1 { font-size: 24px; font-weight: 300; letter-spacing: -0.5px; margin: 0; }
-        h1 b { font-weight: 600; color: #ee4c2c; }
+        h1 b { font-weight: 600; color: #b66f68; }
         .input-group { margin-bottom: 25px; text-align: left; position: relative; }
         label { display: block; margin-bottom: 8px; font-size: 14px; font-weight: 600; color: var(--text-main); }
         input[type="text"] { width: 100%; padding: 12px 14px; background-color: rgba(255,255,255,0.8); border: 1px solid var(--border); border-radius: 6px; font-size: 16px; color: var(--text-main); outline: none; transition: all 0.2s; box-shadow: inset 0 1px 2px rgba(0,0,0,0.05); }
-        input[type="text"]:focus { background-color: #fff; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(238, 76, 44, 0.3); }
-        .result-box { background-color: var(--cmd-bg); border-radius: 8px; padding: 16px; margin-top: 20px; text-align: left; position: relative; display: none; box-shadow: 0 4px 15px rgba(0,0,0,0.15); border: 1px solid rgba(255,255,255,0.1); }
+        input[type="text"]:focus { background-color: #fff; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(216,144,134,0.18); }
+        .result-box { background-color: var(--cmd-bg); border-radius: 8px; padding: 16px; margin-top: 20px; text-align: left; position: relative; display: none; box-shadow: 0 10px 24px rgba(86,112,137,0.08); border: 1px solid var(--border); }
         .result-box.show { display: block; animation: slideDown 0.3s ease-out; }
-        .cmd-label { font-size: 12px; color: #8b949e; margin-bottom: 6px; display: block; }
+        .cmd-label { font-size: 12px; color: #7b8794; margin-bottom: 6px; display: block; }
         .cmd-text { font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace; color: var(--cmd-text); font-size: 14px; word-break: break-all; line-height: 1.5; padding-right: 60px; }
         .example-pair { margin-top: 16px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; text-align: left; background: rgba(255,255,255,0.72); }
         .example-row { display: grid; grid-template-columns: 104px minmax(0,1fr); gap: 10px; padding: 10px 12px; border-top: 1px solid var(--border); align-items: center; }
         .example-row:first-child { border-top: 0; }
         .example-row span { color: var(--text-muted); font-size: 12px; font-weight: 700; text-transform: uppercase; }
         .example-row code { color: var(--text-main); font-size: 12px; word-break: break-all; }
-        .copy-btn { position: absolute; top: 50%; right: 12px; transform: translateY(-50%); background-color: var(--btn-bg); color: #fff; border: 1px solid rgba(0,0,0,0.1); border-radius: 6px; padding: 6px 12px; cursor: pointer; font-size: 13px; font-weight: 600; transition: all 0.2s; box-shadow: 0 1px 0 rgba(0,0,0,0.1); }
-        .copy-btn:hover { background-color: var(--btn-hover); box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .copy-btn { position: absolute; top: 50%; right: 12px; transform: translateY(-50%); background-color: var(--btn-bg); color: #334155; border: 1px solid #d5e3ec; border-radius: 6px; padding: 6px 12px; cursor: pointer; font-size: 13px; font-weight: 600; transition: all 0.2s; box-shadow: none; }
+        .copy-btn:hover { background-color: var(--btn-hover); box-shadow: 0 8px 18px rgba(86,112,137,0.10); }
         .copy-btn:active { transform: translateY(-50%) scale(0.96); }
         .tips { margin-top: 30px; font-size: 13px; color: var(--text-muted); text-align: left; border-top: 1px solid var(--border); padding-top: 20px; }
         .tips p { margin-bottom: 8px; display: flex; align-items: center; }
-        .badge { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 800; margin-right: 8px; background: #fff0eb; color: #9f1239; border: 1px solid rgba(159, 18, 57, 0.22); }
-        .badge-blue { background: #e1f6fc; color: #1d4ed8; border: 1px solid rgba(29, 78, 216, 0.22); }
+        .badge, .badge-blue { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 800; margin-right: 8px; }
+        .badge { background: #fff0eb; color: #9f6f73; border: 1px solid rgba(216, 144, 134, 0.28); }
+        .badge-blue { background: #f0f9fc; color: #5f8da6; border: 1px solid #d4e8f1; }
         .footer { margin-top: 30px; font-size: 13px; color: #475569; text-align: center; position: relative; z-index: 1; }
         .footer a { text-decoration: none; color: #334155; font-weight: 700; transition: color 0.2s; }
         .footer a:hover { color: var(--accent); }
@@ -268,7 +269,7 @@ function htmlPage(request) {
     <canvas id="canvas-bg"></canvas>
     <div class="container">
         <div class="header">
-            <svg class="logo" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.72 18.06c.64-.69 1.15-1.57 1.48-2.58.34-1.02.48-2.12.39-3.21-.08-1.09-.39-2.14-.9-3.09-.51-.95-1.2-1.77-2.02-2.39-.82-.62-1.78-1.03-2.81-1.18-1.03-.15-2.09-.03-3.08.35-.99.38-1.89.98-2.61 1.76-.72.78-1.25 1.72-1.53 2.76l1.83.49c.17-.62.49-1.19.92-1.65.43-.47.97-.82 1.56-1.05.59-.23 1.23-.3 1.84-.21.62.09 1.19.33 1.68.7.49.37.9.86 1.2 1.43.3.57.49 1.2.54 1.85.05.65-.03 1.31-.23 1.92-.2.61-.51 1.13-.89 1.55l2.63 2.54z" fill="#EE4C2C"/><path d="M6.28 5.94c-.64.69-1.15 1.57-1.48 2.58-.34 1.02-.48 2.12-.39 3.21.08 1.09.39 2.14.9 3.09.51.95 1.2 1.77 2.02 2.39.82.62 1.78 1.03 2.81 1.18 1.03.15 2.09.03 3.08-.35.99-.38 1.89-.98 2.61-1.76.72-.78 1.25-1.72 1.53-2.76l-1.83-.49c-.17.62-.49 1.19-.92 1.65-.43.47-.97.82-1.56 1.05-.59.23-1.23.3-1.84.21-.62-.09-1.19-.33-1.68-.7-.49-.37-.9-.86-1.2-1.43-.3-.57-.49-1.2-.54-1.85-.05-.65.03-1.31.23-1.92.2-.61.51-1.13.89-1.55L7.22 5.94h-.94z" fill="#3775A9"/></svg>
+            <svg class="logo" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.72 18.06c.64-.69 1.15-1.57 1.48-2.58.34-1.02.48-2.12.39-3.21-.08-1.09-.39-2.14-.9-3.09-.51-.95-1.2-1.77-2.02-2.39-.82-.62-1.78-1.03-2.81-1.18-1.03-.15-2.09-.03-3.08.35-.99.38-1.89.98-2.61 1.76-.72.78-1.25 1.72-1.53 2.76l1.83.49c.17-.62.49-1.19.92-1.65.43-.47.97-.82 1.56-1.05.59-.23 1.23-.3 1.84-.21.62.09 1.19.33 1.68.7.49.37.9.86 1.2 1.43.3.57.49 1.2.54 1.85.05.65-.03 1.31-.23 1.92-.2.61-.51 1.13-.89 1.55l2.63 2.54z" fill="#d89086"/><path d="M6.28 5.94c-.64.69-1.15 1.57-1.48 2.58-.34 1.02-.48 2.12-.39 3.21.08 1.09.39 2.14.9 3.09.51.95 1.2 1.77 2.02 2.39.82.62 1.78 1.03 2.81 1.18 1.03.15 2.09.03 3.08-.35.99-.38 1.89-.98 2.61-1.76.72-.78 1.25-1.72 1.53-2.76l-1.83-.49c-.17.62-.49 1.19-.92 1.65-.43.47-.97.82-1.56 1.05-.59.23-1.23.3-1.84.21-.62-.09-1.19-.33-1.68-.7-.49-.37-.9-.86-1.2-1.43-.3-.57-.49-1.2-.54-1.85-.05-.65.03-1.31.23-1.92.2-.61.51-1.13.89-1.55L7.22 5.94h-.94z" fill="#8eb8d1"/></svg>
             <h1>Python <b>Proxy</b></h1>
         </div>
         <div class="input-group">
@@ -322,7 +323,7 @@ function htmlPage(request) {
                 const btn = document.querySelector('.copy-btn');
                 const originalText = btn.textContent;
                 btn.textContent = "已复制!";
-                btn.style.backgroundColor = "#ee4c2c";
+                btn.style.backgroundColor = "#e8f1f6";
                 setTimeout(() => { btn.textContent = originalText; btn.style.backgroundColor = ""; }, 2000);
             });
         }
@@ -337,7 +338,7 @@ function htmlPage(request) {
             window.addEventListener('mouseout', () => { mouse.x = null; mouse.y = null; });
             function resize() { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; }
             class Particle {
-                constructor() { this.x = Math.random() * width; this.y = Math.random() * height; this.vx = (Math.random() - 0.5) * 1.5; this.vy = (Math.random() - 0.5) * 1.5; this.size = Math.random() * 2 + 1; this.color = 'rgba(238, 76, 44, 0.4)'; } // PyTorch Red
+                constructor() { this.x = Math.random() * width; this.y = Math.random() * height; this.vx = (Math.random() - 0.5) * 1.5; this.vy = (Math.random() - 0.5) * 1.5; this.size = Math.random() * 2 + 1; this.color = 'rgba(216,144,134,0.18)'; } // PyTorch Red
                 update() {
                     this.x += this.vx; this.y += this.vy;
                     if (this.x < 0 || this.x > width) this.vx *= -1;
@@ -365,7 +366,7 @@ function htmlPage(request) {
                         if (distance < connectionDistance) {
                             ctx.beginPath();
                             let opacity = 1 - (distance / connectionDistance);
-                            ctx.strokeStyle = 'rgba(55, 117, 169, ' + opacity * 0.2 + ')'; ctx.lineWidth = 1; ctx.moveTo(particles[i].x, particles[i].y); ctx.lineTo(particles[j].x, particles[j].y); ctx.stroke();
+                            ctx.strokeStyle = 'rgba(125,184,215,' + opacity * 0.12 + ')'; ctx.lineWidth = 1; ctx.moveTo(particles[i].x, particles[i].y); ctx.lineTo(particles[j].x, particles[j].y); ctx.stroke();
                         }
                     }
                 }

@@ -128,8 +128,9 @@ function renderSharedHeaderStyles() {
       border: 0 !important;
     }
     .edgemirror-lang-switch a.active {
-      background: #0f172a !important;
-      color: #ffffff !important;
+      background: #eef5f8 !important;
+      color: #334155 !important;
+      border: 1px solid rgba(99, 124, 145, 0.18) !important;
     }
     .edgemirror-header .nav::-webkit-scrollbar { display: none !important; }
     .edgemirror-header .nav a {
@@ -142,7 +143,7 @@ function renderSharedHeaderStyles() {
       border-radius: 20px !important;
       border: 1px solid rgba(15, 23, 42, 0.08) !important;
       background: rgba(255, 255, 255, 0.72) !important;
-      color: #475569 !important;
+      color: #64748b !important;
       text-decoration: none !important;
       font-size: 13px !important;
       font-weight: 800 !important;
@@ -156,15 +157,15 @@ function renderSharedHeaderStyles() {
     }
     .edgemirror-header .nav a:hover {
       background: #ffffff !important;
-      color: #0f172a !important;
+      color: #334155 !important;
       border-color: rgba(15, 23, 42, 0.16) !important;
       transform: translateY(-1px) !important;
     }
     .edgemirror-header .nav a.active {
-      background: #0f172a !important;
-      color: #ffffff !important;
-      border-color: #0f172a !important;
-      box-shadow: 0 8px 22px rgba(15, 23, 42, 0.18) !important;
+      background: #eef5f8 !important;
+      color: #334155 !important;
+      border-color: rgba(99, 124, 145, 0.2) !important;
+      box-shadow: 0 8px 22px rgba(86, 112, 137, 0.12) !important;
     }
     @media (max-width: 640px) {
       :root { --edgemirror-header-height: 70px; }
