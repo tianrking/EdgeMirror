@@ -321,13 +321,13 @@ function htmlPage(request) {
         .footer { 
             margin-top: 30px; 
             font-size: 13px; 
-            color: rgba(36, 41, 47, 0.6); 
+            color: #475569;
             text-align: center; 
             position: relative; 
             z-index: 1; 
             text-shadow: 0 1px 0 rgba(255,255,255,0.5);
         }
-        .footer a { text-decoration: none; color: var(--text-muted); font-weight: 600; transition: color 0.2s; }
+        .footer a { text-decoration: none; color: #334155; font-weight: 700; transition: color 0.2s; }
         .footer a:hover { color: var(--accent); }
         .heart { color: #be123c; margin: 0 4px; display: inline-block; animation: beat 1.5s infinite; }
 

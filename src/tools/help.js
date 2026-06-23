@@ -292,10 +292,7 @@ function htmlPage(request) {
       margin: 0;
       min-height: 100vh;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background:
-        radial-gradient(circle at 12% 8%, rgba(37, 99, 235, 0.10), transparent 28%),
-        radial-gradient(circle at 88% 12%, rgba(22, 163, 74, 0.10), transparent 26%),
-        linear-gradient(180deg, #ffffff 0%, var(--bg) 44%, #eef3f9 100%);
+      background: linear-gradient(180deg, #ffffff 0%, var(--bg) 44%, #eef3f9 100%);
       color: var(--text);
     }
     .nav {
@@ -647,6 +644,71 @@ function htmlPage(request) {
       .command-header { align-items: flex-start; }
       .route-scroll { display: none; }
       .route-cards { display: grid; }
+    }
+    @media (max-width: 640px) {
+      main {
+        width: min(100% - 24px, 640px);
+        padding: 24px 0 56px;
+      }
+      .hero {
+        gap: 12px;
+        margin-bottom: 18px;
+      }
+      .hero-copy {
+        padding: 22px 18px;
+      }
+      .eyebrow {
+        margin-bottom: 14px;
+      }
+      h1 {
+        font-size: 38px;
+        line-height: 1.05;
+        margin-bottom: 12px;
+      }
+      .lead {
+        font-size: 15px;
+        line-height: 1.66;
+      }
+      .hero-actions {
+        margin-top: 18px;
+      }
+      .action-link {
+        flex: 1 1 130px;
+      }
+      .hero-panel {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        align-content: stretch;
+        padding: 14px;
+      }
+      .metric {
+        padding: 10px 0;
+      }
+      .metric strong.big {
+        font-size: 24px;
+      }
+      .band {
+        margin-top: 14px;
+        padding: 16px;
+      }
+      .grid {
+        gap: 10px;
+      }
+      .card, .route-card, .deploy-step {
+        min-height: 0;
+        padding: 15px;
+      }
+      .toolbar {
+        gap: 10px;
+      }
+      .search {
+        flex-basis: 100%;
+      }
+      .command-header {
+        padding: 12px;
+      }
+      pre {
+        padding: 14px;
+      }
     }
   </style>
 </head>

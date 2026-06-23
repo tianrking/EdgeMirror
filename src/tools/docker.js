@@ -303,8 +303,8 @@ function htmlPage(request) {
         .tips p { margin-bottom: 8px; display: flex; align-items: center; }
         .badge { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 800; margin-right: 8px; background: #e1f6fc; color: #075985; border: 1px solid rgba(7, 89, 133, 0.22); }
         
-        .footer { margin-top: 30px; font-size: 13px; color: rgba(36, 41, 47, 0.6); text-align: center; position: relative; z-index: 1; }
-        .footer a { text-decoration: none; color: var(--text-muted); font-weight: 600; transition: color 0.2s; }
+        .footer { margin-top: 30px; font-size: 13px; color: #475569; text-align: center; position: relative; z-index: 1; }
+        .footer a { text-decoration: none; color: #334155; font-weight: 700; transition: color 0.2s; }
         .footer a:hover { color: var(--accent); }
         .heart { color: #be123c; margin: 0 4px; display: inline-block; animation: beat 1.5s infinite; }
         

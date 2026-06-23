@@ -118,7 +118,7 @@ function renderSharedHeaderStyles() {
       min-width: 34px !important;
       padding: 0 9px !important;
       border-radius: 16px !important;
-      color: #64748b !important;
+      color: #475569 !important;
       text-decoration: none !important;
       font-size: 12px !important;
       font-weight: 900 !important;
