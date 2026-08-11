@@ -49,14 +49,12 @@ export default {
       const target = joinUrlPath(DOWNLOAD_UPSTREAM, `/${crateName}/${crateName}-${version}.crate`, url.search);
       return proxyRequest(request, target, {
         redirectBaseUrl: baseUrl,
-        cacheControl: "public, max-age=31536000, immutable",
       });
     }
 
     const target = joinUrlPath(INDEX_UPSTREAM, url.pathname, url.search);
     return proxyRequest(request, target, {
       redirectBaseUrl: baseUrl,
-      cacheControl: "public, max-age=300",
       forceTextTransform: url.pathname === "/config.json",
       transformText: (body) => rewriteSparseConfig(body, baseUrl, url.pathname),
     });

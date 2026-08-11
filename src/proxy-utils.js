@@ -19,20 +19,27 @@ const HOP_BY_HOP_RESPONSE_HEADERS = new Set([
   "upgrade",
 ]);
 
+export const NO_STORE_HEADERS = Object.freeze({
+  "Cache-Control": "no-store",
+  "Cloudflare-CDN-Cache-Control": "no-store",
+  "CDN-Cache-Control": "no-store",
+});
+
 export function corsPreflightResponse() {
-  return new Response(null, {
+  return enforceNoStore(new Response(null, {
     headers: {
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Methods": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS",
       "Access-Control-Allow-Headers": "*",
       "Access-Control-Max-Age": "86400",
     },
-  });
+  }));
 }
 
 export function htmlResponse(html, init = {}) {
   const headers = new Headers(init.headers);
   headers.set("Content-Type", "text/html; charset=utf-8");
+  applyNoStoreHeaders(headers);
   return new Response(html, { ...init, headers });
 }
 
@@ -40,7 +47,31 @@ export function textResponse(text, init = {}) {
   const headers = new Headers(init.headers);
   headers.set("Content-Type", "text/plain; charset=utf-8");
   headers.set("Access-Control-Allow-Origin", "*");
+  applyNoStoreHeaders(headers);
   return new Response(text, { ...init, headers });
+}
+
+export function fetchNoStore(input, init = {}) {
+  return fetch(input, {
+    ...init,
+    cache: "no-store",
+  });
+}
+
+export function enforceNoStore(response, extraHeaders = {}) {
+  const headers = new Headers(response.headers);
+
+  for (const [key, value] of new Headers(extraHeaders).entries()) {
+    headers.set(key, value);
+  }
+
+  applyNoStoreHeaders(headers);
+
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers,
+  });
 }
 
 export async function proxyRequest(request, targetUrl, options = {}) {
@@ -49,24 +80,28 @@ export async function proxyRequest(request, targetUrl, options = {}) {
     method: request.method,
     headers: buildProxyRequestHeaders(request, target, options.headers),
     body: shouldForwardBody(request) ? await request.blob() : null,
-    redirect: "manual",
+    redirect: options.redirect ?? "manual",
   });
 
-  const upstreamResponse = await fetch(upstreamRequest);
+  const upstreamResponse = await fetchNoStore(upstreamRequest);
   const responseHeaders = buildProxyResponseHeaders(upstreamResponse.headers);
   rewriteRedirectLocation(responseHeaders, upstreamResponse.status, target, options.redirectBaseUrl);
 
-  if (options.cacheControl) {
-    responseHeaders.set("Cache-Control", options.cacheControl);
-  }
-
   responseHeaders.set("Access-Control-Allow-Origin", "*");
   responseHeaders.set("Access-Control-Expose-Headers", "*");
+
+  for (const [key, value] of new Headers(options.responseHeaders).entries()) {
+    responseHeaders.set(key, value);
+  }
+  applyNoStoreHeaders(responseHeaders);
 
   if (options.transformText && (options.forceTextTransform || isTextLike(responseHeaders))) {
     const text = await upstreamResponse.text();
     const transformed = await options.transformText(text, responseHeaders, target);
     responseHeaders.delete("Content-Length");
+    responseHeaders.delete("Content-Encoding");
+    responseHeaders.delete("Content-MD5");
+    responseHeaders.delete("ETag");
     return new Response(transformed, {
       status: upstreamResponse.status,
       statusText: upstreamResponse.statusText,
@@ -141,6 +176,18 @@ function buildProxyResponseHeaders(upstreamHeaders) {
   }
 
   return headers;
+}
+
+function applyNoStoreHeaders(headers) {
+  headers.delete("Age");
+  headers.delete("Expires");
+  headers.delete("Surrogate-Control");
+  headers.delete("CDN-Cache-Control");
+  headers.delete("Cloudflare-CDN-Cache-Control");
+
+  for (const [key, value] of Object.entries(NO_STORE_HEADERS)) {
+    headers.set(key, value);
+  }
 }
 
 function rewriteRedirectLocation(headers, status, target, redirectBaseUrl) {

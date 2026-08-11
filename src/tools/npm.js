@@ -39,7 +39,6 @@ export default {
     const target = joinUrlPath(UPSTREAM, url.pathname, url.search);
     return proxyRequest(request, target, {
       redirectBaseUrl: baseUrl,
-      cacheControl: "public, max-age=300",
       transformText: (body) => rewriteRegistryUrls(body, baseUrl),
     });
   },

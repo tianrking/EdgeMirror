@@ -1,6 +1,6 @@
 import { getLanguage, LANGUAGES } from "../i18n.js";
 import { getToolBaseUrl, renderToolNav } from "../navigation.js";
-import { escapeHtml } from "../proxy-utils.js";
+import { escapeHtml, fetchNoStore } from "../proxy-utils.js";
 
 const PREFLIGHT_INIT = {
   headers: new Headers({
@@ -92,7 +92,7 @@ export default {
         newHeaders.delete("Host");
         newHeaders.delete("Referer");
 
-        const response = await fetch(targetUrlStr, {
+        const response = await fetchNoStore(targetUrlStr, {
           method: "GET",
           headers: newHeaders,
           redirect: "follow",

@@ -1,4 +1,5 @@
 import { getToolBaseUrl, renderToolNav } from "../navigation.js";
+import { fetchNoStore } from "../proxy-utils.js";
 
 /**
  * Hugging Face Proxy Accelerator (Ultimate Light Edition)
@@ -86,7 +87,7 @@ export default {
             redirect: 'manual' 
         });
 
-        const response = await fetch(newRequest);
+        const response = await fetchNoStore(newRequest);
         const status = response.status;
         const responseHeaders = new Headers(response.headers);
 

@@ -50,7 +50,6 @@ export default {
     const target = joinUrlPath(upstream, `/${rest.join("/")}`, url.search);
     return proxyRequest(request, target, {
       redirectBaseUrl: `${baseUrl}/${repositoryKey}`,
-      cacheControl: "public, max-age=300",
     });
   },
 };

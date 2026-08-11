@@ -1,7 +1,8 @@
-import { PROJECT, TOOL_DEFINITIONS } from "../config.js";
+import { CATALOG_DEFINITION, PROJECT, TOOL_DEFINITIONS } from "../config.js";
 import { getLanguage, LANGUAGES } from "../i18n.js";
 import { getDockerRegistryHost, getToolBaseUrl, renderToolNav } from "../navigation.js";
 import { escapeHtml } from "../proxy-utils.js";
+import { REPOSITORY_UI_TARGETS } from "../repositories/config-generator.js";
 
 const COPY = {
   en: {
@@ -246,7 +247,7 @@ export default {
     return new Response(htmlPage(request), {
       headers: {
         "Content-Type": "text/html; charset=utf-8",
-        "Cache-Control": "public, max-age=300",
+        "Cache-Control": "no-store",
       },
     });
   },
@@ -257,6 +258,8 @@ function htmlPage(request) {
   const copy = normalizeHelpCopy(lang, COPY[lang] ?? COPY.en);
   const htmlLang = LANGUAGES[lang]?.htmlLang ?? "en";
   const urls = Object.fromEntries(TOOL_DEFINITIONS.map((tool) => [tool.key, getToolBaseUrl(request, tool.key)]));
+  urls.catalog = getToolBaseUrl(request, CATALOG_DEFINITION.key);
+  urls.repo = `${new URL(request.url).origin}/repo`;
   const dockerHost = getDockerRegistryHost(request);
   const proxyDownloadBase = urls.proxy.endsWith("/proxy") ? urls.proxy : `${urls.proxy}/proxy`;
   const nav = renderToolNav(request, "help");
@@ -731,6 +734,7 @@ function htmlPage(request) {
         <p class="lead">${escapeHtml(copy.lead)}</p>
         <div class="hero-actions">
           <a class="action-link primary" href="${escapeHtml(urls.portal)}">${escapeHtml(copy.openPortal)}</a>
+          <a class="action-link" href="${escapeHtml(urls.catalog)}">Catalog & Setup</a>
           <a class="action-link" href="#routes">${escapeHtml(copy.routeTitle)}</a>
           <a class="action-link" href="#commands">${escapeHtml(copy.commandTitle)}</a>
           <a class="action-link" href="#deploy">${escapeHtml(copy.deployTitle)}</a>
@@ -740,6 +744,7 @@ function htmlPage(request) {
         <div class="metric"><span>${escapeHtml(copy.servicesLabel)}</span><strong class="big">${serviceCount}</strong></div>
         <div class="metric"><span>${escapeHtml(copy.stableRoutes)}</span><strong>${stableCount}</strong></div>
         <div class="metric"><span>${escapeHtml(copy.testRoutes)}</span><strong>${testCount}</strong></div>
+        <div class="metric"><span>System sources</span><strong>${REPOSITORY_UI_TARGETS.length}</strong></div>
         <div class="metric"><span>${escapeHtml(copy.primaryDomain)}</span><strong>${escapeHtml(urls.portal)}</strong></div>
         <div class="metric"><span>${escapeHtml(copy.health)}</span><strong>${escapeHtml(urls.portal)}/healthz</strong></div>
       </div>
@@ -774,11 +779,15 @@ function htmlPage(request) {
         <table class="route-table">
           <thead><tr><th>${escapeHtml(copy.thStatus)}</th><th>${escapeHtml(copy.thService)}</th><th>${escapeHtml(copy.thEntry)}</th><th>${escapeHtml(copy.thUsage)}</th></tr></thead>
           <tbody>
+            ${routeRow("stable", copy, "Catalog & Setup", urls.catalog, "Search all system sources and generate package-manager configuration.")}
+            ${routeRow("stable", copy, "Repository Gateway", urls.repo, "Read-only APT, RPM, Pacman, APK/OPKG, XBPS, pkg, and Conda source trees.")}
             ${SERVICES.map(([status, name, key, descriptions]) => routeRow(status, copy, name, urls[key], serviceDescription(key, descriptions, lang))).join("")}
           </tbody>
         </table>
       </div>
       <div class="route-cards">
+        ${routeCard("stable", copy, "Catalog & Setup", urls.catalog, "Search all system sources and generate package-manager configuration.")}
+        ${routeCard("stable", copy, "Repository Gateway", urls.repo, "Read-only system repository trees under /repo/{source}.")}
         ${SERVICES.map(([status, name, key, descriptions]) => routeCard(status, copy, name, urls[key], serviceDescription(key, descriptions, lang))).join("")}
       </div>
       <div class="empty-state" id="routeEmpty">${escapeHtml(copy.noRouteResults)}</div>
@@ -991,6 +1000,30 @@ function deployStep(number, title, text, color = "") {
 
 function buildCommands(urls, dockerHost, proxyDownloadBase) {
   return [
+    {
+      group: "stable",
+      groupLabel: "Stable",
+      title: "Debian APT",
+      value: `deb ${urls.repo}/debian bookworm main contrib non-free-firmware`,
+    },
+    {
+      group: "stable",
+      groupLabel: "Stable",
+      title: "OpenWrt APK (25.12+)",
+      value: `sed -i 's#https://downloads.openwrt.org/#${urls.repo}/openwrt/#g' /etc/apk/repositories.d/distfeeds.list\napk update`,
+    },
+    {
+      group: "stable",
+      groupLabel: "Stable",
+      title: "NuGet v3",
+      value: `dotnet nuget add source ${new URL(urls.catalog).origin}/pkg/nuget/v3/index.json --name EdgeMirror`,
+    },
+    {
+      group: "stable",
+      groupLabel: "Stable",
+      title: "Flutter SDK",
+      value: `$env:FLUTTER_STORAGE_BASE_URL=\"${new URL(urls.catalog).origin}/sdk/flutter\"`,
+    },
     {
       group: "stable",
       groupLabel: "Stable",

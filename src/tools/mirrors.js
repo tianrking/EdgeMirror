@@ -1,4 +1,5 @@
 import { getToolBaseUrl, renderToolNav } from "../navigation.js";
+import { fetchNoStore } from "../proxy-utils.js";
 
 /**
  * Universal Linux Mirrors Proxy (Light & Fresh Edition)
@@ -66,7 +67,7 @@ export default {
                 redirect: 'manual' 
             });
 
-            const response = await fetch(newRequest);
+            const response = await fetchNoStore(newRequest);
             const responseHeaders = new Headers(response.headers);
             const status = response.status;
 

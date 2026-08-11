@@ -1,6 +1,6 @@
 export const PROJECT = {
   name: "EdgeMirror",
-  version: "1.0.0",
+  version: "2.0.0",
   primaryHost: "edgemirror.w0x7ce.eu",
   description: "An edge mirror gateway for developer sources, package registries, model hubs, Docker images, Linux mirrors, runtime downloads, and universal file forwarding.",
 };
@@ -115,4 +115,12 @@ export const HELP_DEFINITION = {
   path: "/help",
   status: "stable",
   description: "Beautiful usage guide, route map, CLI recipes, and deployment notes.",
+};
+
+export const CATALOG_DEFINITION = {
+  key: "catalog",
+  title: "Catalog & Setup",
+  path: "/catalog",
+  status: "stable",
+  description: "Search every system source and generate verified package-manager configuration.",
 };

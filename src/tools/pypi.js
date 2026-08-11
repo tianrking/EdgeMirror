@@ -1,5 +1,6 @@
 import { hasNativeHtmlRewriter, rewriteHtmlResponse } from "../html.js";
 import { getToolBaseUrl, renderToolNav } from "../navigation.js";
+import { fetchNoStore } from "../proxy-utils.js";
 
 /**
  * Python Universal Proxy (PyPI + PyTorch + Nav)
@@ -87,7 +88,7 @@ async function proxyPytorch(request, targetUrlStr, workerUrl) {
     newHeaders.set('Referer', targetUrl.origin);
     newHeaders.delete('Authorization');
 
-    const response = await fetch(targetUrl.toString(), {
+    const response = await fetchNoStore(targetUrl.toString(), {
         method: request.method,
         headers: newHeaders,
         body: request.method !== 'GET' && request.method !== 'HEAD' ? await request.blob() : null,
@@ -124,7 +125,7 @@ async function proxyPyPiIndex(request, upstream, workerUrl) {
     newHeaders.set('Referer', targetUrl.origin);
     newHeaders.delete('Accept-Encoding'); 
 
-    const response = await fetch(targetUrl.toString(), {
+    const response = await fetchNoStore(targetUrl.toString(), {
         method: request.method,
         headers: newHeaders,
         redirect: 'follow'
@@ -167,7 +168,7 @@ async function proxyDownload(request, upstream) {
     newHeaders.set('Referer', targetUrl.origin);
     newHeaders.delete('Authorization');
 
-    const response = await fetch(new Request(targetUrl, {
+    const response = await fetchNoStore(new Request(targetUrl, {
         method: request.method,
         headers: newHeaders,
         body: request.method !== 'GET' && request.method !== 'HEAD' ? await request.blob() : null,

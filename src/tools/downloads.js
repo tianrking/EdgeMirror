@@ -78,7 +78,6 @@ export default {
     if (directTarget) {
       return proxyRequest(request, directTarget, {
         redirectBaseUrl: baseUrl,
-        cacheControl: "public, max-age=300",
       });
     }
 
@@ -91,7 +90,6 @@ export default {
     const target = joinUrlPath(upstream, `/${rest.join("/")}`, url.search);
     return proxyRequest(request, target, {
       redirectBaseUrl: `${baseUrl}/${sourceKey}`,
-      cacheControl: "public, max-age=300",
     });
   },
 };

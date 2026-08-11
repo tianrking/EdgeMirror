@@ -1,6 +1,6 @@
 {
   "name": "edgemirror",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -12,9 +12,14 @@
     "deploy:vercel": "npx vercel@latest --prod",
     "check": "node scripts/check-syntax.mjs",
     "smoke:vercel": "node scripts/smoke-vercel.mjs",
-    "verify": "npm run check && npm run smoke:vercel && npm audit --audit-level=high"
+    "smoke:repositories": "node scripts/smoke-repositories.mjs",
+    "smoke:repositories:live": "node scripts/smoke-repositories-live.mjs",
+    "smoke:canonical": "node scripts/smoke-canonical-routes.mjs",
+    "smoke:canonical:live": "node scripts/smoke-canonical-routes-live.mjs",
+    "smoke:catalog": "node scripts/smoke-catalog-ui.mjs",
+    "verify": "npm run check && npm run smoke:repositories && npm run smoke:repositories:live && npm run smoke:canonical && npm run smoke:canonical:live && npm run smoke:catalog && npm run smoke:vercel && npm audit --audit-level=high"
   },
   "devDependencies": {
-    "wrangler": "^4.103.0"
+    "wrangler": "^4.120.1"
   }
 }

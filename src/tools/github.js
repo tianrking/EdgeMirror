@@ -1,5 +1,6 @@
 import { hasNativeHtmlRewriter, rewriteHtmlAttributes, rewriteHtmlResponse } from "../html.js";
 import { getToolBaseUrl, renderToolNav } from "../navigation.js";
+import { fetchNoStore } from "../proxy-utils.js";
 
 /**
  * GitHub Proxy Accelerator (Modern Edition + Nav)
@@ -61,7 +62,7 @@ async function handleRequest(request) {
   };
 
   try {
-    const response = await fetch(targetUrl.toString(), fetchOptions);
+    const response = await fetchNoStore(targetUrl.toString(), fetchOptions);
 
     // 5. 处理重定向
     if ([301, 302, 303, 307, 308].includes(response.status)) {

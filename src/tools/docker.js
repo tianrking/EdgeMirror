@@ -1,4 +1,5 @@
 import { getDockerRegistryHost, getToolBaseUrl, renderToolNav } from "../navigation.js";
+import { fetchNoStore } from "../proxy-utils.js";
 
 /**
  * Docker Proxy Accelerator (Ultimate Edition)
@@ -65,7 +66,7 @@ export default {
                 body: request.method !== 'GET' && request.method !== 'HEAD' ? await request.blob() : null,
                 redirect: 'follow'
             });
-            return fetch(blobRequest);
+            return fetchNoStore(blobRequest);
         }
 
         // 4. UI 界面
@@ -96,7 +97,7 @@ export default {
                         tokenUrl.searchParams.set('scope', newScope);
                     }
                 }
-                return fetch(new Request(tokenUrl, request));
+                return fetchNoStore(new Request(tokenUrl, request));
             }
             
             // 自动补全 library 路径
@@ -122,7 +123,7 @@ export default {
         });
 
         // 7. 发起请求
-        const response = await fetch(newRequest);
+        const response = await fetchNoStore(newRequest);
         const responseHeaders = new Headers(response.headers);
         const status = response.status;
 

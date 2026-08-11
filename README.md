@@ -5,11 +5,11 @@
 <h1 align="center">EdgeMirror</h1>
 
 <p align="center">
-  A CDN-style edge mirror gateway for developer sources.
+  A read-only, no-cache edge mirror gateway for operating-system repositories and developer sources.
 </p>
 
 <p align="center">
-  Accelerate PyPI, PyTorch, Hugging Face, GitHub, Docker registries, Linux mirrors, npm, Go modules, Maven, crates.io, runtime downloads, and universal file forwarding behind one clean domain.
+  One Cloudflare Worker, 35 system repositories, 13 developer adapters, 48 generated configurations, and all legacy routes preserved behind one clean domain.
 </p>
 
 <p align="center">
@@ -31,7 +31,7 @@
 
 ## Why EdgeMirror
 
-EdgeMirror is a single-domain edge mirror gateway for common developer sources. The recommended production model is one public domain, such as `edgemirror.w0x7ce.eu`, with each source accelerator exposed by path: `/edgemirror`, `/pypi`, `/hf`, `/github`, `/docker`, `/mirrors`, `/proxy`, `/npm`, `/go`, `/maven`, `/crates`, `/downloads`, and `/help`.
+EdgeMirror is a single-domain edge mirror gateway for common developer sources. The recommended production model is one public domain, such as `edgemirror.w0x7ce.eu`, with canonical namespaces at `/repo`, `/pkg`, `/sdk`, `/oci`, and `/git`. Existing paths such as `/pypi`, `/npm`, `/go`, `/maven`, `/crates`, `/downloads`, `/github`, and `/v2` remain compatible.
 
 Every page includes a shared language switcher for English, Spanish, and Chinese. Tool names stay in English while explanations, usage notes, and common UI labels follow the selected language.
 
@@ -79,12 +79,92 @@ Keywords: edge mirror gateway, CDN-style source acceleration, Cloudflare Workers
 | Stable | GitHub | `/github` | Git clone, raw files, release assets, and GitHub pages |
 | Stable | Docker Registry | `/docker` UI, `/v2` API | Docker Hub plus `quay`, `gcr`, `k8s`, `ghcr`, `nvcr` prefixes |
 | Stable | Linux Mirrors | `/mirrors` | APT, YUM, DNF, Pacman, wget, and curl mirror paths |
+| Stable | Repository Gateway | `/repo/{source}` | Fixed, read-only, no-cache system repositories for APT, DNF/YUM, Pacman, APK/OPKG, XBPS, FreeBSD pkg, and Conda |
+| Stable | Catalog & Setup UI | `/catalog` | Search all 35 sources, generate configuration for 48 targets, copy commands, and probe selected routes |
+| Stable | Canonical Route Layer | `/pkg`, `/sdk`, `/oci`, `/git` | npm, read-only NuGet v3, Node.js, Flutter, Docker Registry v2, and GitHub canonical paths |
 | Stable | Universal Proxy | `/proxy` | Any HTTP/HTTPS file URL with filename handling |
 | Test | npm Registry | `/npm` | npm, pnpm, yarn metadata and tarball downloads |
 | Test | Go Module Proxy | `/go` | GOPROXY module list, version metadata, `.mod`, and `.zip` files |
 | Test | Maven / Gradle | `/maven` | Maven Central, Google Maven, Gradle Plugin Portal, and JitPack |
 | Test | crates.io Sparse | `/crates` | Cargo sparse index and `.crate` package downloads |
 | Test | Runtime Downloads | `/downloads` | Node.js, Python, Go, Rustup, Open VSX, SourceForge, GitLab, Gitea, and direct file URLs |
+
+The `/catalog` UI covers every repository and canonical developer route while `/repo`, `/pkg`, and `/sdk` remain machine-readable APIs. See [REPOSITORIES.md](REPOSITORIES.md) for source IDs, compatibility routes, and configuration examples.
+
+## Current Release: 2.0.0
+
+| Dimension | Current coverage |
+| --- | --- |
+| System repositories | 35 fixed upstream roots |
+| Developer and SDK adapters | 13 canonical targets |
+| Catalog generator | 48 complete configuration targets |
+| Package managers | APT, DNF/YUM, Zypper, Pacman, APK, OPKG, XBPS, FreeBSD pkg, Conda |
+| Canonical namespaces | `/repo`, `/pkg`, `/sdk`, `/oci`, `/git` |
+| Compatibility | Existing `/pypi`, `/npm`, `/go`, `/maven`, `/crates`, `/downloads`, `/github`, and `/v2` routes remain available |
+| Cache policy | Strict `no-store` on browser, CDN, and upstream requests |
+| Additional infrastructure | No Cache API, KV, R2, D1, database, or VPS |
+
+The Worker is intentionally a transparent, read-only forwarding layer. Official metadata, checksums, signatures, range requests, ETags, and last-modified headers remain part of the upstream protocol instead of being copied into local storage.
+
+## Complete System Repository Catalog
+
+| Ecosystem | Source IDs |
+| --- | --- |
+| Debian / Ubuntu | `debian`, `debian-security`, `debian-ports`, `ubuntu`, `ubuntu-security`, `ubuntu-ports`, `ubuntu-releases` |
+| Raspberry Pi | `raspbian`, `raspberrypi`, `raspberrypi-images` |
+| OpenWrt / ImmortalWrt | `openwrt`, `openwrt-releases`, `openwrt-snapshots`, `openwrt-packages`, `openwrt-firmware`, `openwrt-sdk`, `immortalwrt`, `immortalwrt-releases`, `immortalwrt-snapshots` |
+| Pacman / APK | `arch`, `archlinuxarm`, `alpine`, `msys2` |
+| DNF / YUM / Zypper | `fedora`, `epel`, `centos-stream`, `rocky`, `almalinux`, `opensuse` |
+| XBPS / pkg / Termux | `void`, `void-musl`, `freebsd-pkg`, `termux` |
+| Conda | `anaconda`, `conda-forge` |
+
+Every source uses the same machine route:
+
+```text
+https://YOUR_DOMAIN/repo/{source}/{upstream-path}
+```
+
+`GET /repo` returns the deployed source catalog as JSON, including canonical IDs, aliases, upstream roots, and complete entry URLs. Compatibility aliases such as `debian-archive`, `ubuntu-archive`, `raspi`, `archlinux`, `fedora-epel`, `centos`, `rockylinux`, `alma`, `freebsd`, and `conda-defaults` are also accepted.
+
+## Canonical Route Map
+
+| Canonical route | Purpose | Compatible route |
+| --- | --- | --- |
+| `/repo/{source}/...` | Fixed operating-system repositories | New namespace |
+| `/pkg/npm/...` | npm registry | `/npm/...` |
+| `/pkg/nuget/v3/index.json` | Read-only NuGet v3 service index and resource chain | New namespace |
+| `/sdk/node/...` | Node.js release tree | `/downloads/node/...` |
+| `/sdk/flutter/...` | Flutter SDK metadata and storage root | New namespace |
+| `/oci/docker/v2/...` | Docker Registry v2 API | `/v2/...`, `/docker/...` |
+| `/git/github/...` | GitHub Git, raw files, and release assets | `/github/...` |
+
+The NuGet adapter rewrites the full v3 resource chain back through EdgeMirror and removes publish capabilities. Flutter release metadata and storage URLs are rewritten to the deployment domain. Docker token and blob redirects, npm tarball URLs, and other protocol-specific locations are also rewritten by their dedicated adapters.
+
+## Catalog and Configuration Generator
+
+Open `/catalog` to use the complete UI:
+
+- Search all 35 system sources by distribution, package manager, route, or upstream.
+- Filter APT, OpenWrt, RPM, Pacman/APK, and other repository families.
+- Generate exact configuration for all 48 targets using the deployment domain.
+- Show only the version, architecture, and component fields required by the selected target.
+- Copy the generated command, open the selected route, or run a real `HEAD` route probe.
+- Use the same UI in English, Spanish, or Chinese on desktop and mobile.
+
+The UI calls the read-only JSON generator endpoint:
+
+```text
+GET /catalog/config?id=debian&origin=https://YOUR_DOMAIN&version=bookworm&components=main%20contrib
+```
+
+The endpoint validates the origin, target ID, version, architecture, and component list before generating output. It only accepts `GET`, `HEAD`, and `OPTIONS`.
+
+OpenWrt package-manager selection follows the release boundary automatically:
+
+```text
+OpenWrt 24.10 and earlier  -> OPKG -> /etc/opkg/distfeeds.conf
+OpenWrt 25.12 and later    -> APK  -> /etc/apk/repositories.d/distfeeds.list
+```
 
 ## One-Click Deployment
 
@@ -126,8 +206,13 @@ Useful scripts:
 | `npm run dev:cloudflare` | Same as `npm run dev` |
 | `npm run dev:vercel` | Start Vercel local development with `npx vercel@latest dev` |
 | `npm run check` | Syntax-check every JavaScript file under `src` and `scripts` |
+| `npm run smoke:repositories` | Verify all 35 repository mappings, aliases, methods, headers, and no-store behavior |
+| `npm run smoke:repositories:live` | Probe representative official APT, DNF, Pacman, APK, XBPS, and Conda upstreams |
+| `npm run smoke:canonical` | Verify canonical npm, NuGet, SDK, OCI, and Git route behavior with controlled upstreams |
+| `npm run smoke:canonical:live` | Verify representative canonical routes against live official services |
+| `npm run smoke:catalog` | Verify all 48 configuration targets, the OpenWrt boundary, validation, UI counts, and legacy navigation |
 | `npm run smoke:vercel` | Import the Vercel function entry and verify core routes |
-| `npm run verify` | Run syntax check, Vercel smoke test, and high-severity npm audit |
+| `npm run verify` | Run every syntax, repository, live-upstream, canonical-route, Catalog, Vercel, and security check |
 | `npm run deploy:cloudflare` | Deploy with Wrangler |
 | `npm run deploy:vercel` | Deploy to Vercel production with `npx vercel@latest --prod` |
 
@@ -241,13 +326,20 @@ curl -L -O "https://edgemirror.w0x7ce.eu/downloads/https://nodejs.org/dist/v22.1
 
 ```text
 api/index.js              Vercel Functions Web Handler entry
+REPOSITORIES.md           Complete source IDs, canonical routes, and package-manager recipes
 scripts/check-syntax.mjs  Cross-platform JavaScript syntax checker
+scripts/smoke-*.mjs       Repository, canonical route, Catalog, live upstream, and Vercel tests
 scripts/smoke-vercel.mjs  Vercel runtime smoke test
 src/config.js             Project metadata, service registry, health paths
 src/html.js               HTML rewrite fallback for non-Cloudflare runtimes
 src/i18n.js               Language detection, language switch links, and localized URLs
 src/index.js              Host/path router and health endpoint
 src/proxy-utils.js        Shared CORS, redirect, header, and proxy helpers
+src/repositories/         Fixed upstream catalog and validated configuration generator
+src/tools/catalog.js      Catalog UI and read-only configuration endpoint
+src/tools/repositories.js Repository gateway handler
+src/tools/nuget.js        Read-only NuGet v3 resource-chain adapter
+src/tools/sdks.js         Node.js and Flutter canonical SDK routes
 src/tools/*.js            Individual tool implementations
 vercel.json               Vercel routing and build configuration
 wrangler.toml             Portable Cloudflare Workers deploy configuration
@@ -263,6 +355,10 @@ For Cloudflare custom domains, add the domain in the Cloudflare dashboard or use
 ## Production Notes
 
 - Keep `npm run verify` green before deploying.
+- Treat `/catalog` as the human interface and `/repo`, `/pkg`, and `/sdk` as machine interfaces.
+- Keep repository and configuration endpoints read-only: only `GET`, `HEAD`, and `OPTIONS` are accepted.
+- Keep browser, CDN, and upstream cache directives at `no-store`; public caching is deliberately not enabled.
+- Preserve upstream Range, ETag, Last-Modified, Content-Range, checksum, and signature behavior.
 - Keep `wrangler` updated; it is the local Cloudflare dev/deploy toolchain.
 - Cloudflare custom domains are account-specific, so the portable default `wrangler.toml` does not hard-code one.
 - Use one primary domain for the public product experience; legacy per-tool hosts are not the recommended interaction model.
@@ -273,5 +369,5 @@ For Cloudflare custom domains, add the domain in the Cloudflare dashboard or use
 - Promote test accelerators to stable after more upstream compatibility checks.
 - Add configurable service domains through environment variables.
 - Add structured access logs and optional request tracing.
-- Add per-tool smoke tests with mocked upstream responses.
+- Expand live probes to more architectures without making deployment depend on every upstream being online.
 - Add deployment preview screenshots for the portal and tool pages.

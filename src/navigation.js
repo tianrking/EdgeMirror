@@ -1,9 +1,9 @@
-import { HELP_DEFINITION, PROJECT, TOOL_DEFINITIONS } from "./config.js";
+import { CATALOG_DEFINITION, HELP_DEFINITION, PROJECT, TOOL_DEFINITIONS } from "./config.js";
 import { getLanguage, preserveLanguageUrl, renderClientI18nScript, renderHeaderLanguageSwitch } from "./i18n.js";
 
 const TOOL_BY_KEY = new Map(TOOL_DEFINITIONS.map((tool) => [tool.key, tool]));
 const KNOWN_HOSTS = new Set(TOOL_DEFINITIONS.map((tool) => tool.host));
-const NAV_ITEMS = [...TOOL_DEFINITIONS, HELP_DEFINITION];
+const NAV_ITEMS = [...TOOL_DEFINITIONS, CATALOG_DEFINITION, HELP_DEFINITION];
 const REPO_URL = "https://github.com/tianrking/EdgeMirror";
 
 const NAV_LABELS = {
@@ -19,13 +19,25 @@ const NAV_LABELS = {
   maven: "Maven",
   crates: "Crates",
   downloads: "Downloads",
+  catalog: "Catalog",
   help: "Help",
 };
 
 export function getToolBaseUrl(request, key) {
   const url = new URL(request.url);
   const origin = getAppOrigin(url);
-  const item = key === HELP_DEFINITION.key ? HELP_DEFINITION : TOOL_BY_KEY.get(key);
+  const contextKey = request.headers.get("X-EdgeMirror-Tool-Key");
+  const contextBasePath = request.headers.get("X-EdgeMirror-Base-Path");
+
+  if (contextKey === key && contextBasePath !== null) {
+    return `${origin}${contextBasePath}`;
+  }
+
+  const item = key === HELP_DEFINITION.key
+    ? HELP_DEFINITION
+    : key === CATALOG_DEFINITION.key
+      ? CATALOG_DEFINITION
+      : TOOL_BY_KEY.get(key);
 
   if (!item) {
     return origin;
