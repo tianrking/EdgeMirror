@@ -100,9 +100,9 @@ assert(legacyPageResponse.status === 200, "legacy tool page should remain availa
 console.log("ok new portal and legacy-page Catalog navigation");
 
 const documentationChecks = [
-  ["README.md", ["Current Release: 2.0.0", "35 fixed upstream roots", "48 complete configuration targets", "Canonical Route Map", "/catalog/config", "OpenWrt 25.12"]],
-  ["README.zh-CN.md", ["当前版本：2.0.0", "35 个固定官方上游根目录", "48 个完整配置目标", "规范路由地图", "/catalog/config", "OpenWrt 25.12"]],
-  ["README.es.md", ["Versión actual: 2.0.0", "35 raíces upstream oficiales", "48 targets de configuración", "Mapa de rutas canónicas", "/catalog/config", "OpenWrt 25.12"]],
+  ["README.md", ["Current Release: 2.0.0", "35 fixed upstream roots", "48 complete configuration targets", "Canonical Route Map", "/catalog/config", "OpenWrt 25.12", "https://box.w0x7ce.eu"]],
+  ["README.zh-CN.md", ["当前版本：2.0.0", "35 个固定官方上游根目录", "48 个完整配置目标", "规范路由地图", "/catalog/config", "OpenWrt 25.12", "https://box.w0x7ce.eu"]],
+  ["README.es.md", ["Versión actual: 2.0.0", "35 raíces upstream oficiales", "48 targets de configuración", "Mapa de rutas canónicas", "/catalog/config", "OpenWrt 25.12", "https://box.w0x7ce.eu"]],
   ["REPOSITORIES.md", ["Repository Gateway", "35", "/repo/{source}", "/pkg/nuget/v3/index.json", "OpenWrt 25.12"]],
 ];
 

@@ -31,7 +31,9 @@
 
 ## Resumen
 
-EdgeMirror es un gateway edge mirror de un solo dominio. El modelo recomendado usa un dominio, por ejemplo `edgemirror.w0x7ce.eu`, con namespaces canonicos en `/repo`, `/pkg`, `/sdk`, `/oci` y `/git`. Las rutas existentes como `/pypi`, `/npm`, `/go`, `/maven`, `/crates`, `/downloads`, `/github` y `/v2` siguen siendo compatibles.
+EdgeMirror es un gateway edge mirror de un solo dominio. El modelo recomendado usa un `YOUR_DOMAIN` público con namespaces canónicos en `/repo`, `/pkg`, `/sdk`, `/oci` y `/git`. Las rutas existentes como `/pypi`, `/npm`, `/go`, `/maven`, `/crates`, `/downloads`, `/github` y `/v2` siguen siendo compatibles.
+
+Deployment actual del mantenedor: [box.w0x7ce.eu](https://box.w0x7ce.eu/). Los forks personales pueden usar `workers.dev`; el custom domain es opcional.
 
 Mantenedor: [tianrking](https://github.com/tianrking)
 
@@ -147,6 +149,8 @@ https://deploy.workers.cloudflare.com/?url=https://github.com/tianrking/edgemirr
 
 Cloudflare lee `wrangler.toml`, crea el Worker y lo despliega con el nombre indicado por la cuenta. La configuración portable activa `workers.dev`, desactiva preview URLs y no vincula el dominio personal del mantenedor.
 
+El deployment verificado del mantenedor es `https://box.w0x7ce.eu`. Los forks personales pueden usar el hostname `workers.dev` que devuelve Wrangler o añadir su propio custom domain.
+
 Para desplegar desde una copia local autenticada:
 
 ```bash
@@ -189,15 +193,15 @@ opkg update
 Developer y SDK:
 
 ```bash
-pip install numpy -i https://edgemirror.w0x7ce.eu/pypi/simple/
-export HF_ENDPOINT=https://edgemirror.w0x7ce.eu/hf
+pip install numpy -i https://YOUR_DOMAIN/pypi/simple/
+export HF_ENDPOINT=https://YOUR_DOMAIN/hf
 huggingface-cli download gpt2
-git clone https://edgemirror.w0x7ce.eu/github/vercel/next.js.git
-docker pull edgemirror.w0x7ce.eu/library/nginx:latest
-npm install lodash --registry=https://edgemirror.w0x7ce.eu/pkg/npm/
-dotnet nuget add source https://edgemirror.w0x7ce.eu/pkg/nuget/v3/index.json --name EdgeMirror
-go env -w GOPROXY=https://edgemirror.w0x7ce.eu/go,direct
-curl -L -O "https://edgemirror.w0x7ce.eu/downloads/node/v22.11.0/node-v22.11.0-x64.msi"
+git clone https://YOUR_DOMAIN/github/vercel/next.js.git
+docker pull YOUR_DOMAIN/library/nginx:latest
+npm install lodash --registry=https://YOUR_DOMAIN/pkg/npm/
+dotnet nuget add source https://YOUR_DOMAIN/pkg/nuget/v3/index.json --name EdgeMirror
+go env -w GOPROXY=https://YOUR_DOMAIN/go,direct
+curl -L -O "https://YOUR_DOMAIN/downloads/node/v22.11.0/node-v22.11.0-x64.msi"
 ```
 
 ## Desarrollo local

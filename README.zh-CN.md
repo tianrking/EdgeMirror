@@ -31,7 +31,9 @@
 
 ## 项目定位
 
-EdgeMirror 是一个单域名边缘镜像网关，用一个仓库提供一组常用开发源加速服务。推荐的生产玩法是一个公开域名，例如 `edgemirror.w0x7ce.eu`，规范命名空间使用 `/repo`、`/pkg`、`/sdk`、`/oci`、`/git`；原有 `/pypi`、`/npm`、`/go`、`/maven`、`/crates`、`/downloads`、`/github`、`/v2` 等入口继续兼容。
+EdgeMirror 是一个单域名边缘镜像网关，用一个仓库提供一组常用开发源加速服务。推荐的生产玩法是一个公开 `YOUR_DOMAIN`，规范命名空间使用 `/repo`、`/pkg`、`/sdk`、`/oci`、`/git`；原有 `/pypi`、`/npm`、`/go`、`/maven`、`/crates`、`/downloads`、`/github`、`/v2` 等入口继续兼容。
+
+维护者当前在线部署：[box.w0x7ce.eu](https://box.w0x7ce.eu/)。个人 Fork 可以直接使用 `workers.dev`，自定义域名是可选项。
 
 维护者：[tianrking](https://github.com/tianrking)
 
@@ -178,6 +180,8 @@ https://deploy.workers.cloudflare.com/?url=https://github.com/tianrking/edgemirr
 
 Cloudflare 会读取 `wrangler.toml`，创建 Worker，并部署到当前账户提供的 Worker 名称。默认配置是可移植的一键部署配置：启用 `workers.dev`，关闭 preview URLs，并且不会默认绑定维护者自己的自定义域名。
 
+当前已经验证的维护者部署地址为 `https://box.w0x7ce.eu`。个人部署时可以使用 Wrangler 返回的 `workers.dev` 主机名，或在部署成功后再绑定自己的自定义域名。
+
 Worker 部署成功后，可以在 Cloudflare 控制台添加一个自定义域名；也可以确认该域名属于当前 Cloudflare 账户后，把 `wrangler.custom-domain.example.toml` 里的 route 配置复制到 `wrangler.toml`。所有工具仍然使用同一套路径路由。
 
 ### 部署到 Vercel
@@ -222,7 +226,7 @@ EdgeMirror 以单域名路径路由为主：
 
 | 路由方式 | 示例 | 说明 |
 | --- | --- | --- |
-| 路径路由 | `https://edgemirror.w0x7ce.eu/pypi/simple/` | 推荐生产模式 |
+| 路径路由 | `https://YOUR_DOMAIN/pypi/simple/` | 推荐生产模式 |
 | Vercel 路径路由 | `https://your-app.vercel.app/pypi/simple/` | Vercel 一键部署后使用同样路径 |
 
 单域名部署下的 Docker 用法：
@@ -248,60 +252,60 @@ docker pull your-app.vercel.app/library/nginx:latest
 安装 Python 包：
 
 ```bash
-pip install numpy -i https://edgemirror.w0x7ce.eu/pypi/simple/
+pip install numpy -i https://YOUR_DOMAIN/pypi/simple/
 ```
 
 安装 PyTorch wheel：
 
 ```bash
-pip install torch torchvision --index-url https://edgemirror.w0x7ce.eu/pypi/pytorch/cu118
+pip install torch torchvision --index-url https://YOUR_DOMAIN/pypi/pytorch/cu118
 ```
 
 下载 Hugging Face 模型：
 
 ```bash
-export HF_ENDPOINT=https://edgemirror.w0x7ce.eu/hf
+export HF_ENDPOINT=https://YOUR_DOMAIN/hf
 huggingface-cli download gpt2
 ```
 
 通过 GitHub 代理克隆仓库：
 
 ```bash
-git clone https://edgemirror.w0x7ce.eu/github/vercel/next.js.git
+git clone https://YOUR_DOMAIN/github/vercel/next.js.git
 ```
 
 拉取 Docker 镜像：
 
 ```bash
-docker pull edgemirror.w0x7ce.eu/library/nginx:latest
+docker pull YOUR_DOMAIN/library/nginx:latest
 ```
 
 代理任意文件：
 
 ```bash
-curl -L -O "https://edgemirror.w0x7ce.eu/proxy/https://nodejs.org/dist/v22.11.0/node-v22.11.0-x64.msi"
+curl -L -O "https://YOUR_DOMAIN/proxy/https://nodejs.org/dist/v22.11.0/node-v22.11.0-x64.msi"
 ```
 
 使用新增的 Test npm registry 路由：
 
 ```bash
-npm install lodash --registry=https://edgemirror.w0x7ce.eu/npm/
-pnpm install lodash --registry=https://edgemirror.w0x7ce.eu/npm/
+npm install lodash --registry=https://YOUR_DOMAIN/npm/
+pnpm install lodash --registry=https://YOUR_DOMAIN/npm/
 ```
 
 使用新增的 Test Go module 路由：
 
 ```bash
-go env -w GOPROXY=https://edgemirror.w0x7ce.eu/go,direct
+go env -w GOPROXY=https://YOUR_DOMAIN/go,direct
 ```
 
 使用新增的 Test Maven / Gradle 路由：
 
 ```kotlin
 repositories {
-    maven { url = uri("https://edgemirror.w0x7ce.eu/maven/maven-central") }
-    maven { url = uri("https://edgemirror.w0x7ce.eu/maven/google") }
-    maven { url = uri("https://edgemirror.w0x7ce.eu/maven/gradle-plugin") }
+    maven { url = uri("https://YOUR_DOMAIN/maven/maven-central") }
+    maven { url = uri("https://YOUR_DOMAIN/maven/google") }
+    maven { url = uri("https://YOUR_DOMAIN/maven/gradle-plugin") }
 }
 ```
 
@@ -312,14 +316,14 @@ repositories {
 replace-with = "edgemirror"
 
 [source.edgemirror]
-registry = "sparse+https://edgemirror.w0x7ce.eu/crates/"
+registry = "sparse+https://YOUR_DOMAIN/crates/"
 ```
 
 使用新增的 Test 运行时下载路由：
 
 ```bash
-curl -L -O "https://edgemirror.w0x7ce.eu/downloads/node/v22.11.0/node-v22.11.0-x64.msi"
-curl -L -O "https://edgemirror.w0x7ce.eu/downloads/https://nodejs.org/dist/v22.11.0/node-v22.11.0-x64.msi"
+curl -L -O "https://YOUR_DOMAIN/downloads/node/v22.11.0/node-v22.11.0-x64.msi"
+curl -L -O "https://YOUR_DOMAIN/downloads/https://nodejs.org/dist/v22.11.0/node-v22.11.0-x64.msi"
 ```
 
 ## 项目结构

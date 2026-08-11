@@ -1,8 +1,9 @@
 const api = await import("../api/index.js");
 
 const BASE_URL = "https://edgemirror.vercel.app";
+const PRIMARY_ORIGIN = "https://box.w0x7ce.eu";
 const TOOLS = [
-  { key: "portal", path: "/edgemirror", host: "edgemirror.w0x7ce.eu" },
+  { key: "portal", path: "/edgemirror", host: "box.w0x7ce.eu" },
   { key: "pypi", path: "/pypi", host: "pypi.w0x7ce.eu" },
   { key: "hf", path: "/hf", host: "hf.w0x7ce.eu" },
   { key: "github", path: "/github", host: "github.w0x7ce.eu" },
@@ -14,7 +15,7 @@ const TOOLS = [
   { key: "maven", path: "/maven", host: "maven.w0x7ce.eu" },
   { key: "crates", path: "/crates", host: "crates.w0x7ce.eu" },
   { key: "downloads", path: "/downloads", host: "downloads.w0x7ce.eu" },
-  { key: "help", path: "/help", host: "edgemirror.w0x7ce.eu" },
+  { key: "help", path: "/help", host: "box.w0x7ce.eu" },
 ];
 
 const PAGE_IDENTITY = new Map([
@@ -127,10 +128,10 @@ for (const tool of TOOLS) {
 }
 
 for (const tool of TOOLS) {
-  const response = await api.default.fetch(new Request(`https://edgemirror.w0x7ce.eu${tool.path}`));
+  const response = await api.default.fetch(new Request(`${PRIMARY_ORIGIN}${tool.path}`));
   const html = await response.text();
   assertHtmlResponse(response, html, `${tool.key} primary-domain path page`);
-  assertNavLinks(html, TOOLS.map((item) => urlFor("https://edgemirror.w0x7ce.eu", item.path)), `${tool.key} primary-domain nav`);
+  assertNavLinks(html, TOOLS.map((item) => urlFor(PRIMARY_ORIGIN, item.path)), `${tool.key} primary-domain nav`);
   assertPageIdentity(html, tool.key, `${tool.key} primary-domain path page`);
   console.log(`ok ${tool.key} primary-domain path page nav`);
 }
@@ -140,7 +141,7 @@ for (const tool of TOOLS) {
   const response = await api.default.fetch(new Request(hostUrl));
   const html = await response.text();
   assertHtmlResponse(response, html, `${tool.key} host page`);
-  assertNavLinks(html, TOOLS.map((item) => urlFor("https://edgemirror.w0x7ce.eu", item.path)), `${tool.key} host nav`);
+  assertNavLinks(html, TOOLS.map((item) => urlFor(PRIMARY_ORIGIN, item.path)), `${tool.key} host nav`);
   assertPageIdentity(html, tool.key, `${tool.key} host page`);
   console.log(`ok ${tool.key} host page nav`);
 }

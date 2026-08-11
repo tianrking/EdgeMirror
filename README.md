@@ -31,9 +31,11 @@
 
 ## Why EdgeMirror
 
-EdgeMirror is a single-domain edge mirror gateway for common developer sources. The recommended production model is one public domain, such as `edgemirror.w0x7ce.eu`, with canonical namespaces at `/repo`, `/pkg`, `/sdk`, `/oci`, and `/git`. Existing paths such as `/pypi`, `/npm`, `/go`, `/maven`, `/crates`, `/downloads`, `/github`, and `/v2` remain compatible.
+EdgeMirror is a single-domain edge mirror gateway for common developer sources. The recommended production model is one public `YOUR_DOMAIN` with canonical namespaces at `/repo`, `/pkg`, `/sdk`, `/oci`, and `/git`. Existing paths such as `/pypi`, `/npm`, `/go`, `/maven`, `/crates`, `/downloads`, `/github`, and `/v2` remain compatible.
 
 Every page includes a shared language switcher for English, Spanish, and Chinese. Tool names stay in English while explanations, usage notes, and common UI labels follow the selected language.
+
+Current maintainer deployment: [box.w0x7ce.eu](https://box.w0x7ce.eu/). A custom domain is optional for personal forks and is not required for any route.
 
 Maintainer: [tianrking](https://github.com/tianrking)
 
@@ -178,6 +180,8 @@ https://deploy.workers.cloudflare.com/?url=https://github.com/tianrking/edgemirr
 
 Cloudflare reads `wrangler.toml`, creates the Worker, and deploys it to the account-provided Worker name. The default configuration is intentionally portable: it enables `workers.dev`, disables preview URLs, and does not bind the maintainer's custom domain.
 
+The currently verified maintainer deployment is `https://box.w0x7ce.eu`. Personal forks can use the returned `workers.dev` hostname or attach their own custom domain after deployment.
+
 After the Worker is deployed, add one custom domain in the Cloudflare dashboard, or copy the route block from `wrangler.custom-domain.example.toml` into `wrangler.toml` after confirming that the domain belongs to your Cloudflare account. Every tool will still use the same path model on that domain.
 
 ### Deploy to Vercel
@@ -222,7 +226,7 @@ EdgeMirror is designed around single-domain path routing:
 
 | Runtime style | Example | Notes |
 | --- | --- | --- |
-| Path routing | `https://edgemirror.w0x7ce.eu/pypi/simple/` | Recommended production model |
+| Path routing | `https://YOUR_DOMAIN/pypi/simple/` | Recommended production model |
 | Vercel path routing | `https://your-app.vercel.app/pypi/simple/` | Same routes after one-click Vercel deploy |
 
 For Docker on a single-domain deployment, use the deployment host directly:
@@ -248,60 +252,60 @@ They return JSON with the project version and the registered service list.
 Install a Python package:
 
 ```bash
-pip install numpy -i https://edgemirror.w0x7ce.eu/pypi/simple/
+pip install numpy -i https://YOUR_DOMAIN/pypi/simple/
 ```
 
 Install PyTorch wheels:
 
 ```bash
-pip install torch torchvision --index-url https://edgemirror.w0x7ce.eu/pypi/pytorch/cu118
+pip install torch torchvision --index-url https://YOUR_DOMAIN/pypi/pytorch/cu118
 ```
 
 Download a Hugging Face model:
 
 ```bash
-export HF_ENDPOINT=https://edgemirror.w0x7ce.eu/hf
+export HF_ENDPOINT=https://YOUR_DOMAIN/hf
 huggingface-cli download gpt2
 ```
 
 Clone through the GitHub proxy:
 
 ```bash
-git clone https://edgemirror.w0x7ce.eu/github/vercel/next.js.git
+git clone https://YOUR_DOMAIN/github/vercel/next.js.git
 ```
 
 Pull a Docker image:
 
 ```bash
-docker pull edgemirror.w0x7ce.eu/library/nginx:latest
+docker pull YOUR_DOMAIN/library/nginx:latest
 ```
 
 Proxy a generic file:
 
 ```bash
-curl -L -O "https://edgemirror.w0x7ce.eu/proxy/https://nodejs.org/dist/v22.11.0/node-v22.11.0-x64.msi"
+curl -L -O "https://YOUR_DOMAIN/proxy/https://nodejs.org/dist/v22.11.0/node-v22.11.0-x64.msi"
 ```
 
 Use the new test npm registry route:
 
 ```bash
-npm install lodash --registry=https://edgemirror.w0x7ce.eu/npm/
-pnpm install lodash --registry=https://edgemirror.w0x7ce.eu/npm/
+npm install lodash --registry=https://YOUR_DOMAIN/npm/
+pnpm install lodash --registry=https://YOUR_DOMAIN/npm/
 ```
 
 Use the new test Go module route:
 
 ```bash
-go env -w GOPROXY=https://edgemirror.w0x7ce.eu/go,direct
+go env -w GOPROXY=https://YOUR_DOMAIN/go,direct
 ```
 
 Use the new test Maven / Gradle routes:
 
 ```kotlin
 repositories {
-    maven { url = uri("https://edgemirror.w0x7ce.eu/maven/maven-central") }
-    maven { url = uri("https://edgemirror.w0x7ce.eu/maven/google") }
-    maven { url = uri("https://edgemirror.w0x7ce.eu/maven/gradle-plugin") }
+    maven { url = uri("https://YOUR_DOMAIN/maven/maven-central") }
+    maven { url = uri("https://YOUR_DOMAIN/maven/google") }
+    maven { url = uri("https://YOUR_DOMAIN/maven/gradle-plugin") }
 }
 ```
 
@@ -312,14 +316,14 @@ Use the new test crates.io sparse route:
 replace-with = "edgemirror"
 
 [source.edgemirror]
-registry = "sparse+https://edgemirror.w0x7ce.eu/crates/"
+registry = "sparse+https://YOUR_DOMAIN/crates/"
 ```
 
 Use the new test runtime download route:
 
 ```bash
-curl -L -O "https://edgemirror.w0x7ce.eu/downloads/node/v22.11.0/node-v22.11.0-x64.msi"
-curl -L -O "https://edgemirror.w0x7ce.eu/downloads/https://nodejs.org/dist/v22.11.0/node-v22.11.0-x64.msi"
+curl -L -O "https://YOUR_DOMAIN/downloads/node/v22.11.0/node-v22.11.0-x64.msi"
+curl -L -O "https://YOUR_DOMAIN/downloads/https://nodejs.org/dist/v22.11.0/node-v22.11.0-x64.msi"
 ```
 
 ## Project Layout
