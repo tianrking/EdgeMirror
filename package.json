@@ -20,6 +20,6 @@
     "verify": "npm run check && npm run smoke:repositories && npm run smoke:repositories:live && npm run smoke:canonical && npm run smoke:canonical:live && npm run smoke:catalog && npm run smoke:vercel && npm audit --audit-level=high"
   },
   "devDependencies": {
-    "wrangler": "^4.120.1"
+    "wrangler": "^4.131.0"
   }
 }
